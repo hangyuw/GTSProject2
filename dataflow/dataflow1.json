@@ -24,9 +24,6 @@
 			"transformations": [
 				{
 					"name": "flatten1"
-				},
-				{
-					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -51,7 +48,7 @@
 				"     limit: 100,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
-				"derivedColumn1 foldDown(unroll(),",
+				"source1 foldDown(unroll(),",
 				"     mapColumn(",
 				"          business_id,",
 				"          name,",
@@ -70,8 +67,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten1",
-				"source1 derive(attributes = ERROR_FUNCTION(''),",
-				"          hours = ERROR_FUNCTION('')) ~> derivedColumn1",
 				"flatten1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
