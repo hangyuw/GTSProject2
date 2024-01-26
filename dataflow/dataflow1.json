@@ -52,7 +52,11 @@
 					"name": "flatten3"
 				},
 				{
-					"name": "aggregate1"
+					"name": "DistinctBusiness",
+					"description": "make business json distinct by business_id"
+				},
+				{
+					"name": "MakeDistinct"
 				}
 			],
 			"scriptLines": [
@@ -178,7 +182,8 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten3",
-				"flatten1 aggregate(groupBy(business_id)) ~> aggregate1"
+				"flatten1 aggregate(groupBy(business_id)) ~> DistinctBusiness",
+				"flatten2 aggregate() ~> MakeDistinct"
 			]
 		}
 	}
