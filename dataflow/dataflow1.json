@@ -84,9 +84,6 @@
 			],
 			"transformations": [
 				{
-					"name": "flatten1"
-				},
-				{
 					"name": "flatten2"
 				},
 				{
@@ -97,6 +94,9 @@
 				},
 				{
 					"name": "flatten5"
+				},
+				{
+					"name": "flatten6"
 				}
 			],
 			"scriptLines": [
@@ -182,25 +182,6 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> user",
-				"business foldDown(unroll(),",
-				"     mapColumn(",
-				"          business_id,",
-				"          name,",
-				"          address,",
-				"          city,",
-				"          state,",
-				"          postal_code,",
-				"          latitude,",
-				"          longitude,",
-				"          stars,",
-				"          review_count,",
-				"          is_open,",
-				"          attributes,",
-				"          categories,",
-				"          hours",
-				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten1",
 				"checkin foldDown(unroll(),",
 				"     mapColumn(",
 				"          business_id,",
@@ -259,11 +240,30 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten5",
+				"business foldDown(unrollMultiple(,),",
+				"     mapColumn(",
+				"          business_id,",
+				"          name,",
+				"          address,",
+				"          city,",
+				"          state,",
+				"          postal_code,",
+				"          latitude,",
+				"          longitude,",
+				"          stars,",
+				"          review_count,",
+				"          is_open,",
+				"          attributes,",
+				"          categories,",
+				"          hours",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten6",
 				"flatten5 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> UserSink",
-				"flatten1 sink(allowSchemaDrift: true,",
+				"flatten6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> BusinessSink",
