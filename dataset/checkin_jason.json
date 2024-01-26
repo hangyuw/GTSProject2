@@ -19,7 +19,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "@dataset().input_file",
+					"value": "@dataset().input_checkin",
 					"type": "Expression"
 				},
 				"container": "source-data"

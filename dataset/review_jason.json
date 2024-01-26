@@ -5,6 +5,11 @@
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"input_review": {
+				"type": "string"
+			}
+		},
 		"folder": {
 			"name": "Source_Data"
 		},
@@ -13,7 +18,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "yelp_academic_dataset_review.json",
+				"fileName": {
+					"value": "@dataset().input_review",
+					"type": "Expression"
+				},
 				"container": "source-data"
 			}
 		},
