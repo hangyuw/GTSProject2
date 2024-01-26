@@ -1,0 +1,45 @@
+{
+	"name": "dataflow2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "flatterned_business_json",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"name": "source2"
+				},
+				{
+					"name": "source3"
+				},
+				{
+					"name": "source4"
+				},
+				{
+					"name": "source5"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> source1",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> source2",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> source3",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> source4",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> source5"
+			]
+		}
+	}
+}
