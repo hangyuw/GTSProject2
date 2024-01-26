@@ -70,7 +70,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten1",
-				"source1 derive(attributes = coalesce(attributes.ByAppointmentOnly, 'Default_Value'),",
+				"source1 derive(attributes = ERROR_FUNCTION('coalesce(attributes.ByAppointmentOnly, __SINGLE_QUOTE__Default_Value__SINGLE_QUOTE__)__NEW_LINE_R____NEW_LINE_N__coalesce(attributes.BusinessAcceptsCreditCards, __SINGLE_QUOTE__Default_Value__SINGLE_QUOTE__)'),",
 				"          attributes = coalesce(attributes.BusinessAcceptsCreditCards, 'Default_Value'),",
 				"          hours = coalesce(hours.Monday, 'Default_Value'),",
 				"          hours = coalesce(hours.Tuesday, 'Default_Value'),",
