@@ -27,6 +27,9 @@
 				},
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -70,7 +73,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten1",
-				"source1 derive({attributes.ByappointmentOnly} = coalesce(attributes.ByAppointmentOnly, 'Default_Value'),",
+				"select1 derive({attributes.ByappointmentOnly} = coalesce(attributes.ByAppointmentOnly, 'Default_Value'),",
 				"          {attributes.BusinessAcceptsCreditCards} = coalesce(attributes.BusinessAcceptsCreditCards, 'Default_Value'),",
 				"          {hours.Monday} = coalesce(hours.Monday, 'Default_Value'),",
 				"          {hours.Tuesday} = coalesce(hours.Tuesday, 'Default_Value'),",
@@ -78,6 +81,24 @@
 				"          {hours.Thursday} = coalesce(hours.Thursday, 'Default_Value'),",
 				"          {hours.Friday} = coalesce(hours.Friday, 'Default_Value'),",
 				"          {hours.Saturday} = coalesce(hours.Saturday, 'Default_Value')) ~> derivedColumn1",
+				"source1 select(mapColumn(",
+				"          business_id,",
+				"          name,",
+				"          address,",
+				"          city,",
+				"          state,",
+				"          postal_code,",
+				"          latitude,",
+				"          longitude,",
+				"          stars,",
+				"          review_count,",
+				"          is_open,",
+				"          attributes,",
+				"          categories,",
+				"          hours",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
 				"flatten1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
