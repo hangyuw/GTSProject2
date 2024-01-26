@@ -44,6 +44,12 @@
 			"transformations": [
 				{
 					"name": "flatten1"
+				},
+				{
+					"name": "flatten2"
+				},
+				{
+					"name": "flatten3"
 				}
 			],
 			"scriptLines": [
@@ -147,7 +153,28 @@
 				"          hours",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten1"
+				"     skipDuplicateMapOutputs: false) ~> flatten1",
+				"checkin foldDown(unroll(),",
+				"     mapColumn(",
+				"          business_id,",
+				"          date",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten2",
+				"review foldDown(unroll(),",
+				"     mapColumn(",
+				"          review_id,",
+				"          user_id,",
+				"          business_id,",
+				"          stars,",
+				"          useful,",
+				"          funny,",
+				"          cool,",
+				"          text,",
+				"          date",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten3"
 			]
 		}
 	}
