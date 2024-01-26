@@ -68,7 +68,10 @@
 				},
 				{
 					"name": "DistinctTip",
-					"description": "make tip distinct by"
+					"description": "make tip distinct by user_id AND data"
+				},
+				{
+					"name": "flatten5"
 				}
 			],
 			"scriptLines": [
@@ -207,7 +210,35 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten4",
-				"flatten4 aggregate() ~> DistinctTip"
+				"flatten4 aggregate(groupBy(user_id,",
+				"          date)) ~> DistinctTip",
+				"user foldDown(unroll(),",
+				"     mapColumn(",
+				"          user_id,",
+				"          name,",
+				"          review_count,",
+				"          yelping_since,",
+				"          useful,",
+				"          funny,",
+				"          cool,",
+				"          elite,",
+				"          friends,",
+				"          fans,",
+				"          average_stars,",
+				"          compliment_hot,",
+				"          compliment_more,",
+				"          compliment_profile,",
+				"          compliment_cute,",
+				"          compliment_list,",
+				"          compliment_note,",
+				"          compliment_plain,",
+				"          compliment_cool,",
+				"          compliment_funny,",
+				"          compliment_writer,",
+				"          compliment_photos",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten5"
 			]
 		}
 	}
