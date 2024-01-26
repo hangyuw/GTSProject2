@@ -60,30 +60,10 @@
 					"name": "flatten3"
 				},
 				{
-					"name": "DistinctBusiness",
-					"description": "make business json distinct by business_id"
-				},
-				{
-					"name": "DistinctCheckin",
-					"description": "make checkin json distinct by business_id"
-				},
-				{
-					"name": "DistinctReview",
-					"description": "make review distinct by review_id"
-				},
-				{
 					"name": "flatten4"
 				},
 				{
-					"name": "DistinctTip",
-					"description": "make tip distinct by user_id AND data"
-				},
-				{
 					"name": "flatten5"
-				},
-				{
-					"name": "DistinctUser",
-					"description": "make user distinct by user_id"
 				}
 			],
 			"scriptLines": [
@@ -209,12 +189,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten3",
-				"flatten1 aggregate(groupBy(business_id),",
-				"     business_id = ERROR_FUNCTION('')) ~> DistinctBusiness",
-				"flatten2 aggregate(groupBy(business_id),",
-				"     business_id = ERROR_FUNCTION('')) ~> DistinctCheckin",
-				"flatten3 aggregate(groupBy(review_id),",
-				"     review_id = ERROR_FUNCTION('')) ~> DistinctReview",
 				"tip foldDown(unroll(),",
 				"     mapColumn(",
 				"          user_id,",
@@ -225,10 +199,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten4",
-				"flatten4 aggregate(groupBy(user_id,",
-				"          date),",
-				"     user_id = ERROR_FUNCTION(''),",
-				"          date = ERROR_FUNCTION('')) ~> DistinctTip",
 				"user foldDown(unroll(),",
 				"     mapColumn(",
 				"          user_id,",
@@ -256,8 +226,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten5",
-				"flatten5 aggregate(groupBy(user_id)) ~> DistinctUser",
-				"DistinctUser sink(allowSchemaDrift: true,",
+				"flatten5 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> sink1"
