@@ -103,7 +103,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "flatterned_business_json",
+						"referenceName": "output_business_json",
 						"type": "DatasetReference"
 					}
 				]
