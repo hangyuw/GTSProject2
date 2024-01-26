@@ -119,7 +119,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     documentForm: 'documentPerLine') ~> business",
+				"     documentForm: 'singleDocument') ~> business",
 				"source(output(",
 				"          business_id as string,",
 				"          date as date",
