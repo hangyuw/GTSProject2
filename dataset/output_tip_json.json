@@ -1,9 +1,14 @@
 {
-	"name": "flatterned_tip_json",
+	"name": "output_tip_json",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"output_tip": {
+				"type": "string"
+			}
 		},
 		"folder": {
 			"name": "Sink_Data"
@@ -13,6 +18,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().output_tip",
+					"type": "Expression"
+				},
 				"container": "sink-data"
 			}
 		},

@@ -1,9 +1,14 @@
 {
-	"name": "flatterned_review_json",
+	"name": "output_review_json",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"output_review": {
+				"type": "string"
+			}
 		},
 		"folder": {
 			"name": "Sink_Data"
@@ -13,6 +18,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().output_review",
+					"type": "Expression"
+				},
 				"container": "sink-data"
 			}
 		},
