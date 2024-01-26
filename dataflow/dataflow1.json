@@ -70,7 +70,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten1",
-				"source1 derive(attributes = ERROR_FUNCTION(''),",
+				"source1 derive(attributes = ERROR_FUNCTION('attributes.ByAppointmentOnly as ByAppointmentOnly attributes.BusinessAcceptsCreditCards as BusinessAcceptsCreditCards'),",
 				"          hours = ERROR_FUNCTION('')) ~> derivedColumn1",
 				"flatten1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
