@@ -1,0 +1,32 @@
+{
+	"name": "checkin_jason",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Source_Data"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "yelp_academic_dataset_checkin.json",
+				"container": "source-data"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"business_id": {
+					"type": "string"
+				},
+				"date": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}

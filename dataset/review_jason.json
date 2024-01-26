@@ -1,0 +1,53 @@
+{
+	"name": "review_jason",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Source_Data"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "yelp_academic_dataset_review.json",
+				"container": "source-data"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"review_id": {
+					"type": "string"
+				},
+				"user_id": {
+					"type": "string"
+				},
+				"business_id": {
+					"type": "string"
+				},
+				"stars": {
+					"type": "number"
+				},
+				"useful": {
+					"type": "integer"
+				},
+				"funny": {
+					"type": "integer"
+				},
+				"cool": {
+					"type": "integer"
+				},
+				"text": {
+					"type": "string"
+				},
+				"date": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
