@@ -97,9 +97,6 @@
 				},
 				{
 					"name": "flatten5"
-				},
-				{
-					"name": "parse1"
 				}
 			],
 			"scriptLines": [
@@ -185,7 +182,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> user",
-				"parse1 foldDown(unroll(),",
+				"business foldDown(unroll(),",
 				"     mapColumn(",
 				"          business_id,",
 				"          name,",
@@ -262,10 +259,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten5",
-				"business parse(attributes = ERROR_FUNCTION(''),",
-				"          categories = ERROR_FUNCTION(''),",
-				"     format: 'json',",
-				"     documentForm: 'documentPerLine') ~> parse1",
 				"flatten5 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
