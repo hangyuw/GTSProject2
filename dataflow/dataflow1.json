@@ -56,7 +56,12 @@
 					"description": "make business json distinct by business_id"
 				},
 				{
-					"name": "MakeDistinct"
+					"name": "DistinctCheckin",
+					"description": "make checkin json distinct by business_id"
+				},
+				{
+					"name": "DistinctReview",
+					"description": "make review distinct"
 				}
 			],
 			"scriptLines": [
@@ -183,7 +188,8 @@
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten3",
 				"flatten1 aggregate(groupBy(business_id)) ~> DistinctBusiness",
-				"flatten2 aggregate() ~> MakeDistinct"
+				"flatten2 aggregate(groupBy(business_id)) ~> DistinctCheckin",
+				"flatten3 aggregate() ~> DistinctReview"
 			]
 		}
 	}
