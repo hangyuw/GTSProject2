@@ -7,7 +7,8 @@
 		},
 		"parameters": {
 			"input_business": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "yelp_academic_dataset_business.json"
 			}
 		},
 		"folder": {
