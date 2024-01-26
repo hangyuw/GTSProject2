@@ -100,7 +100,7 @@
 				"          user_id as string,",
 				"          business_id as string,",
 				"          text as string,",
-				"          date as string,",
+				"          date as date,",
 				"          compliment_count as integer",
 				"     ),",
 				"     allowSchemaDrift: true,",
