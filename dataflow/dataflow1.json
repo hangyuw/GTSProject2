@@ -97,9 +97,6 @@
 				},
 				{
 					"name": "flatten5"
-				},
-				{
-					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -185,7 +182,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> user",
-				"derivedColumn1 foldDown(unroll(),",
+				"business foldDown(unroll(),",
 				"     mapColumn(",
 				"          business_id,",
 				"          name,",
@@ -262,8 +259,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten5",
-				"business derive(attributes = ERROR_FUNCTION(''),",
-				"          categories = ERROR_FUNCTION('')) ~> derivedColumn1",
 				"flatten5 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
