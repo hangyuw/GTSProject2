@@ -182,7 +182,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> user",
-				"business foldDown(unroll(, (flatten())),",
+				"business foldDown(unroll(),",
 				"     mapColumn(",
 				"          business_id,",
 				"          name,",
