@@ -40,7 +40,11 @@
 					"name": "user"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "flatten1"
@@ -243,7 +247,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten5",
-				"flatten5 aggregate(groupBy(user_id)) ~> DistinctUser"
+				"flatten5 aggregate(groupBy(user_id)) ~> DistinctUser",
+				"DistinctUser sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
