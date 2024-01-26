@@ -41,16 +41,8 @@
 								"type": "DataFlowReference",
 								"parameters": {},
 								"datasetParameters": {
-									"business": {},
-									"checkin": {},
-									"review": {},
-									"tip": {},
-									"user": {},
-									"UserSink": {},
-									"BusinessSink": {},
-									"CheckinSink": {},
-									"ReviewSink": {},
-									"TipSink": {}
+									"source1": {},
+									"sink1": {}
 								}
 							},
 							"staging": {},
@@ -273,6 +265,110 @@
 						}
 					}
 				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/flatterned_business_json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Sink_Data"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "sink-data"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/flatterned_checkin_json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Sink_Data"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "sink-data"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/flatterned_review_json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Sink_Data"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "sink-data"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/flatterned_tip_json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Sink_Data"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "sink-data"
+					}
+				},
+				"schema": {}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
@@ -531,94 +627,21 @@
 								"referenceName": "business_json",
 								"type": "DatasetReference"
 							},
-							"name": "business"
-						},
-						{
-							"dataset": {
-								"referenceName": "checkin_jason",
-								"type": "DatasetReference"
-							},
-							"name": "checkin"
-						},
-						{
-							"dataset": {
-								"referenceName": "review_jason",
-								"type": "DatasetReference"
-							},
-							"name": "review"
-						},
-						{
-							"dataset": {
-								"referenceName": "tip_jason",
-								"type": "DatasetReference"
-							},
-							"name": "tip"
-						},
-						{
-							"dataset": {
-								"referenceName": "user_json",
-								"type": "DatasetReference"
-							},
-							"name": "user"
+							"name": "source1"
 						}
 					],
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "flatterned_user_json",
-								"type": "DatasetReference"
-							},
-							"name": "UserSink",
-							"description": "Export data to flatterned_user_json"
-						},
-						{
-							"dataset": {
 								"referenceName": "flatterned_business_json",
 								"type": "DatasetReference"
 							},
-							"name": "BusinessSink",
-							"description": "flatterned_business_json"
-						},
-						{
-							"dataset": {
-								"referenceName": "flatterned_checkin_json",
-								"type": "DatasetReference"
-							},
-							"name": "CheckinSink",
-							"description": "flatterned_checkin_json"
-						},
-						{
-							"dataset": {
-								"referenceName": "flatterned_review_json",
-								"type": "DatasetReference"
-							},
-							"name": "ReviewSink",
-							"description": "flatterned review json"
-						},
-						{
-							"dataset": {
-								"referenceName": "flatterned_tip_json",
-								"type": "DatasetReference"
-							},
-							"name": "TipSink",
-							"description": "flatterned tip json"
+							"name": "sink1"
 						}
 					],
 					"transformations": [
 						{
 							"name": "flatten1"
-						},
-						{
-							"name": "flatten2"
-						},
-						{
-							"name": "flatten3"
-						},
-						{
-							"name": "flatten4"
-						},
-						{
-							"name": "flatten5"
 						}
 					],
 					"scriptLines": [
@@ -641,70 +664,8 @@
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     ignoreNoFilesFound: false,",
-						"     documentForm: 'documentPerLine') ~> business",
-						"source(output(",
-						"          business_id as string,",
-						"          date as date",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     documentForm: 'documentPerLine') ~> checkin",
-						"source(output(",
-						"          review_id as string,",
-						"          user_id as string,",
-						"          business_id as string,",
-						"          stars as double,",
-						"          useful as integer,",
-						"          funny as integer,",
-						"          cool as integer,",
-						"          text as string,",
-						"          date as date",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     documentForm: 'documentPerLine') ~> review",
-						"source(output(",
-						"          user_id as string,",
-						"          business_id as string,",
-						"          text as string,",
-						"          date as date,",
-						"          compliment_count as integer",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     documentForm: 'documentPerLine') ~> tip",
-						"source(output(",
-						"          user_id as string,",
-						"          name as string,",
-						"          review_count as integer,",
-						"          yelping_since as string,",
-						"          useful as integer,",
-						"          funny as integer,",
-						"          cool as integer,",
-						"          elite as string,",
-						"          friends as string,",
-						"          fans as integer,",
-						"          average_stars as double,",
-						"          compliment_hot as integer,",
-						"          compliment_more as integer,",
-						"          compliment_profile as integer,",
-						"          compliment_cute as integer,",
-						"          compliment_list as integer,",
-						"          compliment_note as integer,",
-						"          compliment_plain as integer,",
-						"          compliment_cool as integer,",
-						"          compliment_funny as integer,",
-						"          compliment_writer as integer,",
-						"          compliment_photos as integer",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     documentForm: 'documentPerLine') ~> user",
-						"business foldDown(unroll(),",
+						"     documentForm: 'documentPerLine') ~> source1",
+						"source1 foldDown(unroll(),",
 						"     mapColumn(",
 						"          business_id,",
 						"          name,",
@@ -723,202 +684,16 @@
 						"     ),",
 						"     skipDuplicateMapInputs: false,",
 						"     skipDuplicateMapOutputs: false) ~> flatten1",
-						"checkin foldDown(unroll(),",
-						"     mapColumn(",
-						"          business_id,",
-						"          date",
-						"     ),",
-						"     skipDuplicateMapInputs: false,",
-						"     skipDuplicateMapOutputs: false) ~> flatten2",
-						"review foldDown(unroll(),",
-						"     mapColumn(",
-						"          review_id,",
-						"          user_id,",
-						"          business_id,",
-						"          stars,",
-						"          useful,",
-						"          funny,",
-						"          cool,",
-						"          text,",
-						"          date",
-						"     ),",
-						"     skipDuplicateMapInputs: false,",
-						"     skipDuplicateMapOutputs: false) ~> flatten3",
-						"tip foldDown(unroll(),",
-						"     mapColumn(",
-						"          user_id,",
-						"          business_id,",
-						"          text,",
-						"          date,",
-						"          compliment_count",
-						"     ),",
-						"     skipDuplicateMapInputs: false,",
-						"     skipDuplicateMapOutputs: false) ~> flatten4",
-						"user foldDown(unroll(),",
-						"     mapColumn(",
-						"          user_id,",
-						"          name,",
-						"          review_count,",
-						"          yelping_since,",
-						"          useful,",
-						"          funny,",
-						"          cool,",
-						"          elite,",
-						"          friends,",
-						"          fans,",
-						"          average_stars,",
-						"          compliment_hot,",
-						"          compliment_more,",
-						"          compliment_profile,",
-						"          compliment_cute,",
-						"          compliment_list,",
-						"          compliment_note,",
-						"          compliment_plain,",
-						"          compliment_cool,",
-						"          compliment_funny,",
-						"          compliment_writer,",
-						"          compliment_photos",
-						"     ),",
-						"     skipDuplicateMapInputs: false,",
-						"     skipDuplicateMapOutputs: false) ~> flatten5",
-						"flatten5 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> UserSink",
 						"flatten1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> BusinessSink",
-						"flatten2 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> CheckinSink",
-						"flatten3 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> ReviewSink",
-						"flatten4 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> TipSink"
+						"     skipDuplicateMapOutputs: true) ~> sink1"
 					]
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/business_json')]",
-				"[concat(variables('factoryId'), '/datasets/checkin_jason')]",
-				"[concat(variables('factoryId'), '/datasets/review_jason')]",
-				"[concat(variables('factoryId'), '/datasets/tip_jason')]",
-				"[concat(variables('factoryId'), '/datasets/user_json')]",
-				"[concat(variables('factoryId'), '/datasets/flatterned_user_json')]",
-				"[concat(variables('factoryId'), '/datasets/flatterned_business_json')]",
-				"[concat(variables('factoryId'), '/datasets/flatterned_checkin_json')]",
-				"[concat(variables('factoryId'), '/datasets/flatterned_review_json')]",
-				"[concat(variables('factoryId'), '/datasets/flatterned_tip_json')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/flatterned_business_json')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Sink_Data"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "sink-data"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/flatterned_checkin_json')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Sink_Data"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "sink-data"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/flatterned_review_json')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Sink_Data"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "sink-data"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/flatterned_tip_json')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Sink_Data"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "sink-data"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+				"[concat(variables('factoryId'), '/datasets/flatterned_business_json')]"
 			]
 		}
 	]
