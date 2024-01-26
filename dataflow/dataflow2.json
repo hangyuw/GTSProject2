@@ -9,19 +9,35 @@
 						"referenceName": "flatterned_business_json",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "ImportBusiness"
 				},
 				{
-					"name": "source2"
+					"dataset": {
+						"referenceName": "flatterned_checkin_json",
+						"type": "DatasetReference"
+					},
+					"name": "ImportCheckin"
 				},
 				{
-					"name": "source3"
+					"dataset": {
+						"referenceName": "flatterned_review_json",
+						"type": "DatasetReference"
+					},
+					"name": "ImportReview"
 				},
 				{
-					"name": "source4"
+					"dataset": {
+						"referenceName": "flatterned_tip_json",
+						"type": "DatasetReference"
+					},
+					"name": "ImportTip"
 				},
 				{
-					"name": "source5"
+					"dataset": {
+						"referenceName": "flatterned_user_json",
+						"type": "DatasetReference"
+					},
+					"name": "ImportUser"
 				}
 			],
 			"sinks": [],
@@ -30,15 +46,23 @@
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     documentForm: 'documentPerLine') ~> source1",
+				"     documentForm: 'documentPerLine') ~> ImportBusiness",
 				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source2",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> ImportCheckin",
 				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source3",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> ImportReview",
 				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source4",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> ImportTip",
 				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source5"
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> ImportUser"
 			]
 		}
 	}
