@@ -14,6 +14,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "flatterned_business_json",
+						"type": "DatasetReference"
+					},
 					"name": "sink1"
 				}
 			],
