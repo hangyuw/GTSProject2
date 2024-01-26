@@ -61,7 +61,14 @@
 				},
 				{
 					"name": "DistinctReview",
-					"description": "make review distinct"
+					"description": "make review distinct by review_id"
+				},
+				{
+					"name": "flatten4"
+				},
+				{
+					"name": "DistinctTip",
+					"description": "make tip distinct by"
 				}
 			],
 			"scriptLines": [
@@ -189,7 +196,18 @@
 				"     skipDuplicateMapOutputs: false) ~> flatten3",
 				"flatten1 aggregate(groupBy(business_id)) ~> DistinctBusiness",
 				"flatten2 aggregate(groupBy(business_id)) ~> DistinctCheckin",
-				"flatten3 aggregate() ~> DistinctReview"
+				"flatten3 aggregate(groupBy(review_id)) ~> DistinctReview",
+				"tip foldDown(unroll(),",
+				"     mapColumn(",
+				"          user_id,",
+				"          business_id,",
+				"          text,",
+				"          date,",
+				"          compliment_count",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten4",
+				"flatten4 aggregate() ~> DistinctTip"
 			]
 		}
 	}
