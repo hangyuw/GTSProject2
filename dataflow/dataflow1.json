@@ -24,6 +24,9 @@
 			"transformations": [
 				{
 					"name": "flatten1"
+				},
+				{
+					"name": "stringify1"
 				}
 			],
 			"scriptLines": [
@@ -48,7 +51,7 @@
 				"     limit: 100,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
-				"source1 foldDown(unroll(),",
+				"stringify1 foldDown(unroll(),",
 				"     mapColumn(",
 				"          business_id,",
 				"          name,",
@@ -67,6 +70,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten1",
+				"source1 stringify(format: 'json') ~> stringify1",
 				"flatten1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
