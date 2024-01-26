@@ -1,5 +1,5 @@
 {
-	"name": "Json1",
+	"name": "flatterned_business_json",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
