@@ -10,30 +10,18 @@
 						"type": "DatasetReference"
 					},
 					"name": "source1"
-				},
-				{
-					"dataset": {
-						"referenceName": "checkin_jason",
-						"type": "DatasetReference"
-					},
-					"name": "source2"
-				},
-				{
-					"dataset": {
-						"referenceName": "review_jason",
-						"type": "DatasetReference"
-					},
-					"name": "source3"
-				},
-				{
-					"name": "source4"
-				},
-				{
-					"name": "source5"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "flatten1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          business_id as string,",
@@ -55,33 +43,29 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
-				"source(output(",
-				"          business_id as string,",
-				"          date as string",
+				"source1 foldDown(unroll(),",
+				"     mapColumn(",
+				"          business_id,",
+				"          name,",
+				"          address,",
+				"          city,",
+				"          state,",
+				"          postal_code,",
+				"          latitude,",
+				"          longitude,",
+				"          stars,",
+				"          review_count,",
+				"          is_open,",
+				"          attributes,",
+				"          categories,",
+				"          hours",
 				"     ),",
-				"     allowSchemaDrift: true,",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten1",
+				"flatten1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false,",
-				"     documentForm: 'documentPerLine') ~> source2",
-				"source(output(",
-				"          review_id as string,",
-				"          user_id as string,",
-				"          business_id as string,",
-				"          stars as double,",
-				"          useful as integer,",
-				"          funny as integer,",
-				"          cool as integer,",
-				"          text as string,",
-				"          date as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false,",
-				"     documentForm: 'documentPerLine') ~> source3",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source4",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source5"
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
