@@ -25,7 +25,19 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "dataflow1",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"source1": {
+								"input_business": "yelp_academic_dataset_business.json"
+							}
+						},
+						"linkedServiceParameters": {
+							"source1": {
+								"schemaLinkedService": {
+									"input_business": "yelp_academic_dataset_business.json"
+								}
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
