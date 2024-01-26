@@ -72,6 +72,10 @@
 				},
 				{
 					"name": "flatten5"
+				},
+				{
+					"name": "DistinctUser",
+					"description": "make user distinct by user_id"
 				}
 			],
 			"scriptLines": [
@@ -238,7 +242,8 @@
 				"          compliment_photos",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten5"
+				"     skipDuplicateMapOutputs: false) ~> flatten5",
+				"flatten5 aggregate(groupBy(user_id)) ~> DistinctUser"
 			]
 		}
 	}
