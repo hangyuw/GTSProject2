@@ -50,6 +50,9 @@
 				},
 				{
 					"name": "flatten3"
+				},
+				{
+					"name": "aggregate1"
 				}
 			],
 			"scriptLines": [
@@ -174,7 +177,8 @@
 				"          date",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten3"
+				"     skipDuplicateMapOutputs: false) ~> flatten3",
+				"flatten1 aggregate(groupBy(business_id)) ~> aggregate1"
 			]
 		}
 	}
