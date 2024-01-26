@@ -1,5 +1,5 @@
 {
-	"name": "flatterned_user_json",
+	"name": "flatterned_checkin_json",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",

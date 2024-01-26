@@ -43,10 +43,43 @@
 			"sinks": [
 				{
 					"dataset": {
+						"referenceName": "flatterned_user_json",
+						"type": "DatasetReference"
+					},
+					"name": "UserSink",
+					"description": "Export data to flatterned_user_json"
+				},
+				{
+					"dataset": {
 						"referenceName": "flatterned_business_json",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "BusinessSink",
+					"description": "flatterned_business_json"
+				},
+				{
+					"dataset": {
+						"referenceName": "flatterned_checkin_json",
+						"type": "DatasetReference"
+					},
+					"name": "CheckinSink",
+					"description": "flatterned_checkin_json"
+				},
+				{
+					"dataset": {
+						"referenceName": "flatterned_review_json",
+						"type": "DatasetReference"
+					},
+					"name": "ReviewSink",
+					"description": "flatterned review json"
+				},
+				{
+					"dataset": {
+						"referenceName": "flatterned_tip_json",
+						"type": "DatasetReference"
+					},
+					"name": "TipSink",
+					"description": "flatterned tip json"
 				}
 			],
 			"transformations": [
@@ -229,7 +262,23 @@
 				"flatten5 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true) ~> UserSink",
+				"flatten1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> BusinessSink",
+				"flatten2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> CheckinSink",
+				"flatten3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> ReviewSink",
+				"flatten4 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> TipSink"
 			]
 		}
 	}
