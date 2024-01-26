@@ -42,6 +42,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "Json1",
+						"type": "DatasetReference"
+					},
 					"name": "sink1"
 				}
 			],
