@@ -42,7 +42,7 @@
 					"name": "derivedColumn1"
 				},
 				{
-					"name": "stringify1"
+					"name": "window1"
 				}
 			],
 			"scriptLines": [
@@ -81,9 +81,8 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
 				"select1, flattenAttributes union(byName: true)~> union1",
-				"stringify1 derive(attributes = ERROR_FUNCTION('')) ~> derivedColumn1",
-				"source1 stringify(attributes = collect(@(attributes = attributes, hours = hours)) ? string,",
-				"     format: 'json') ~> stringify1",
+				"window1 derive(attributes = ERROR_FUNCTION('')) ~> derivedColumn1",
+				"source1 window(over(attributes)) ~> window1",
 				"union1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
