@@ -85,7 +85,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1, union2 union(byName: false)~> union1",
+				"select1, union2 union(byName: true)~> union1",
 				"aggregate1 foldDown(unroll(attributes),",
 				"     mapColumn(",
 				"          ByAppointmentOnly = attributes.ByAppointmentOnly,",
