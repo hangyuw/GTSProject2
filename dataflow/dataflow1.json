@@ -21,10 +21,10 @@
 					"name": "select1"
 				},
 				{
-					"name": "union1"
+					"name": "flattenAttributes"
 				},
 				{
-					"name": "flattenAttributes"
+					"name": "union1"
 				}
 			],
 			"scriptLines": [
@@ -68,7 +68,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"flattenAttributes, select1 union(byName: true)~> union1",
 				"aggregate1 foldDown(unrollMultiple(attributes,hours),",
 				"     mapColumn(",
 				"          attributes = attributes,",
@@ -76,7 +75,8 @@
 				"          hours = hours",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> flattenAttributes"
+				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
+				"select1, flattenAttributes union(byName: true)~> union1"
 			]
 		}
 	}
