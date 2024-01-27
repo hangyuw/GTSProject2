@@ -18,9 +18,6 @@
 					"name": "aggregate1"
 				},
 				{
-					"name": "flattenHours"
-				},
-				{
 					"name": "select1"
 				},
 				{
@@ -28,9 +25,6 @@
 				},
 				{
 					"name": "flattenAttributes"
-				},
-				{
-					"name": "union2"
 				}
 			],
 			"scriptLines": [
@@ -57,21 +51,6 @@
 				"     documentForm: 'documentPerLine') ~> source1",
 				"source1 aggregate(attributes = collect(attributes),",
 				"          hours = collect(hours)) ~> aggregate1",
-				"aggregate1 foldDown(unrollMultiple(hours,attributes),",
-				"     mapColumn(",
-				"          Monday = hours.Monday,",
-				"          Tuesday = hours.Tuesday,",
-				"          Wednesday = hours.Wednesday,",
-				"          Thursday = hours.Thursday,",
-				"          Friday = hours.Friday,",
-				"          Saturday = hours.Saturday,",
-				"          Sunday = hours.Sunday,",
-				"          ByAppointmentOnly = attributes.ByAppointmentOnly,",
-				"          BusinessAcceptsCreditCards = attributes.BusinessAcceptsCreditCards",
-				"     ),",
-				"     partitionBy('hash', 1),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> flattenHours",
 				"source1 select(mapColumn(",
 				"          business_id,",
 				"          name,",
@@ -88,15 +67,14 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1, union2 union(byName: true)~> union1",
+				"flattenAttributes, select1 union(byName: true)~> union1",
 				"aggregate1 foldDown(unrollMultiple(attributes,hours),",
 				"     mapColumn(",
 				"          attributes = attributes,",
 				"          hours = hours",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
-				"flattenAttributes, flattenHours union(byName: false)~> union2"
+				"     skipDuplicateMapOutputs: true) ~> flattenAttributes"
 			]
 		}
 	}
