@@ -27,13 +27,7 @@
 					"name": "flattenAttributes"
 				},
 				{
-					"name": "derivedColumn1"
-				},
-				{
 					"name": "aggregate2"
-				},
-				{
-					"name": "flatten1"
 				}
 			],
 			"scriptLines": [
@@ -78,7 +72,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"derivedColumn1, select1 union(byName: true)~> union1",
+				"aggregate2, select1 union(byName: true)~> union1",
 				"aggregate1 foldDown(unrollMultiple(attributes,hours),",
 				"     mapColumn(",
 				"          attributes = attributes,",
@@ -87,14 +81,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
-				"flatten1 derive(BusinessParking = ERROR_FUNCTION('')) ~> derivedColumn1",
-				"flattenAttributes aggregate(BusinessParking = collect(BusinessParking)) ~> aggregate2",
-				"aggregate2 foldDown(unroll(BusinessParking, BusinessParking),",
-				"     mapColumn(",
-				"          BusinessParking",
-				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten1"
+				"flattenAttributes aggregate(BusinessParking = collect(BusinessParking)) ~> aggregate2"
 			]
 		}
 	}
