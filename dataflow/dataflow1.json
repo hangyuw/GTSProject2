@@ -77,7 +77,6 @@
 				"          attributes = attributes,",
 				"          hours = hours",
 				"     ),",
-				"     partitionBy('roundRobin', 2),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
 				"flattenAttributes derive(attributes = ERROR_FUNCTION(''),",
