@@ -7,7 +7,8 @@
 		},
 		"parameters": {
 			"output_business": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "output_business"
 			}
 		},
 		"folder": {
