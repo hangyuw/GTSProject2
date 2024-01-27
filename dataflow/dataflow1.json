@@ -85,7 +85,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
 				"aggregate2 derive(BusinessParking = ERROR_FUNCTION('')) ~> derivedColumn1",
-				"flattenAttributes aggregate() ~> aggregate2"
+				"flattenAttributes aggregate(BusinessParking = collect(BusinessParking)) ~> aggregate2"
 			]
 		}
 	}
