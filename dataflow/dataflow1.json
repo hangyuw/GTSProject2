@@ -74,6 +74,11 @@
 				"          attributes = attributes,",
 				"          hours = hours",
 				"     ),",
+				"     partitionBy('key',",
+				"          0,",
+				"          attributes,",
+				"          hours",
+				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> flattenAttributes"
 			]
