@@ -25,12 +25,6 @@
 				},
 				{
 					"name": "flattenAttributes"
-				},
-				{
-					"name": "aggregate2"
-				},
-				{
-					"name": "flatten1"
 				}
 			],
 			"scriptLines": [
@@ -55,8 +49,7 @@
 				"     limit: 20,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
-				"source1 aggregate(groupBy(business_id,",
-				"          name),",
+				"source1 aggregate(groupBy(business_id),",
 				"     attributes = collect(attributes),",
 				"          hours = collect(hours)) ~> aggregate1",
 				"source1 select(mapColumn(",
@@ -75,7 +68,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"flatten1, select1 union(byName: true)~> union1",
+				"flattenAttributes, select1 union(byName: true)~> union1",
 				"aggregate1 foldDown(unrollMultiple(attributes,hours),",
 				"     mapColumn(",
 				"          attributes = attributes,",
@@ -83,15 +76,7 @@
 				"          hours = hours",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
-				"flattenAttributes aggregate(BusinessParking = collect(BusinessParking)) ~> aggregate2",
-				"aggregate2 foldDown(unroll(BusinessParking),",
-				"     mapColumn(",
-				"          BusinessParking",
-				"     ),",
-				"     partitionBy('roundRobin', 2),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten1"
+				"     skipDuplicateMapOutputs: true) ~> flattenAttributes"
 			]
 		}
 	}
