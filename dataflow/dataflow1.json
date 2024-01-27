@@ -78,7 +78,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
 				"select1, flattenAttributes union(byName: true)~> union1",
-				"source1 derive(business_id = collect(@(colname = Col, colname2 = col2) ) ) ~> derivedColumn1",
+				"source1 derive(each(match(collect(@(colname = Col, colname2 = col2) ) ), collect(@(colname = Col, colname2 = col2) )  = collect(@(colname = Col, colname2 = col2) ) )) ~> derivedColumn1",
 				"union1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
