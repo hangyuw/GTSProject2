@@ -25,6 +25,9 @@
 				},
 				{
 					"name": "union1"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -103,7 +106,8 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1, flatten1 union(byName: true)~> union1"
+				"select1, flatten1 union(byName: true)~> union1",
+				"flatten1 derive() ~> derivedColumn1"
 			]
 		}
 	}
