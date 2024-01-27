@@ -10,6 +10,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "review_jason",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
 				}
 			],
 			"sinks": [],
@@ -31,6 +38,9 @@
 				},
 				{
 					"name": "union2"
+				},
+				{
+					"name": "aggregate2"
 				}
 			],
 			"scriptLines": [
@@ -55,6 +65,21 @@
 				"     limit: 100,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
+				"source(output(",
+				"          review_id as string,",
+				"          user_id as string,",
+				"          business_id as string,",
+				"          stars as double,",
+				"          useful as integer,",
+				"          funny as integer,",
+				"          cool as integer,",
+				"          text as string,",
+				"          date as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> source2",
 				"source1 aggregate(attributes = collect(attributes),",
 				"          hours = collect(hours)) ~> aggregate1",
 				"aggregate1 foldDown(unroll(hours),",
@@ -115,7 +140,8 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
-				"flattenAttributes, flattenHours union(byName: true)~> union2"
+				"flattenAttributes, flattenHours union(byName: true)~> union2",
+				"source2 aggregate() ~> aggregate2"
 			]
 		}
 	}
