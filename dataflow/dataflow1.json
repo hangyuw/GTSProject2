@@ -112,10 +112,11 @@
 				"          RestaurantsGoodForGroups = attributes.RestaurantsGoodForGroups,",
 				"          DriveThru = attributes.DriveThru,",
 				"          NoiseLevel = attributes.NoiseLevel,",
-				"          hours = hours",
+				"          hours = hours,",
+				"          attributes = attributes",
 				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
 				"flattenAttributes, flattenHours union(byName: false)~> union2"
 			]
 		}
