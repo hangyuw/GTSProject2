@@ -13,7 +13,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "review_jason",
+						"referenceName": "checkin_jason",
 						"type": "DatasetReference"
 					},
 					"name": "source2"
@@ -66,14 +66,7 @@
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
 				"source(output(",
-				"          review_id as string,",
-				"          user_id as string,",
 				"          business_id as string,",
-				"          stars as double,",
-				"          useful as integer,",
-				"          funny as integer,",
-				"          cool as integer,",
-				"          text as string,",
 				"          date as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
