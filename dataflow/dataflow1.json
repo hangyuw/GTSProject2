@@ -82,7 +82,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
-				"flattenAttributes derive(attributes = collect(attributes),",
+				"flattenAttributes derive(attributes = ERROR_FUNCTION(''),",
 				"          hours = ERROR_FUNCTION('')) ~> derivedColumn1"
 			]
 		}
