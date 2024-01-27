@@ -27,6 +27,9 @@
 				},
 				{
 					"name": "flatten1"
+				},
+				{
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -60,7 +63,13 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten1",
-				"flatten1 sink(allowSchemaDrift: true,",
+				"source1 select(mapColumn(",
+				"          attributes,",
+				"          hours",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> sink1"
