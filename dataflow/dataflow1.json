@@ -28,6 +28,9 @@
 				},
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "aggregate2"
 				}
 			],
 			"scriptLines": [
@@ -81,7 +84,8 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
-				"flattenAttributes derive() ~> derivedColumn1"
+				"aggregate2 derive(BusinessParking = ERROR_FUNCTION('')) ~> derivedColumn1",
+				"flattenAttributes aggregate() ~> aggregate2"
 			]
 		}
 	}
