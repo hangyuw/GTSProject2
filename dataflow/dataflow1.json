@@ -23,13 +23,10 @@
 			],
 			"transformations": [
 				{
-					"name": "derivedColumn1"
-				},
-				{
-					"name": "select1"
-				},
-				{
 					"name": "aggregate1"
+				},
+				{
+					"name": "flatten1"
 				}
 			],
 			"scriptLines": [
@@ -54,35 +51,16 @@
 				"     limit: 100,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
-				"aggregate1 derive(attributes = ERROR_FUNCTION(''),",
-				"          hours = ERROR_FUNCTION('')) ~> derivedColumn1",
-				"derivedColumn1 select(mapColumn(",
-				"          business_id,",
-				"          name,",
-				"          address,",
-				"          city,",
-				"          state,",
-				"          postal_code,",
-				"          latitude,",
-				"          longitude,",
-				"          stars,",
-				"          review_count,",
-				"          is_open,",
-				"          categories,",
-				"          {attributes.ByappointmentOnly},",
-				"          {attributes.BusinessAcceptsCreditCards},",
-				"          {hours.Monday},",
-				"          {hours.Tuesday},",
-				"          {hours.Wednesday},",
-				"          {hours.Thursday},",
-				"          {hours.Friday},",
-				"          {hours.Saturday}",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1",
 				"source1 aggregate(attributes = collect(attributes),",
 				"          hours = collect(hours)) ~> aggregate1",
-				"select1 sink(allowSchemaDrift: true,",
+				"aggregate1 foldDown(unrollMultiple(attributes,hours),",
+				"     mapColumn(",
+				"          attributes,",
+				"          hours",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten1",
+				"flatten1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> sink1"
