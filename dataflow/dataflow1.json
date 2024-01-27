@@ -25,6 +25,9 @@
 				},
 				{
 					"name": "flattenAttributes"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -68,7 +71,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"flattenAttributes, select1 union(byName: true)~> union1",
+				"derivedColumn1, select1 union(byName: true)~> union1",
 				"aggregate1 foldDown(unrollMultiple(attributes,hours),",
 				"     mapColumn(",
 				"          attributes = attributes,",
@@ -78,7 +81,9 @@
 				"          array(attributes)",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> flattenAttributes"
+				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
+				"flattenAttributes derive(attributes = collect(attributes),",
+				"          hours = ERROR_FUNCTION('')) ~> derivedColumn1"
 			]
 		}
 	}
