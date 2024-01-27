@@ -10,13 +10,6 @@
 						"type": "DatasetReference"
 					},
 					"name": "source1"
-				},
-				{
-					"dataset": {
-						"referenceName": "checkin_jason",
-						"type": "DatasetReference"
-					},
-					"name": "source2"
 				}
 			],
 			"sinks": [],
@@ -38,9 +31,6 @@
 				},
 				{
 					"name": "union2"
-				},
-				{
-					"name": "aggregate2"
 				}
 			],
 			"scriptLines": [
@@ -65,14 +55,6 @@
 				"     limit: 100,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
-				"source(output(",
-				"          business_id as string,",
-				"          date as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false,",
-				"     documentForm: 'documentPerLine') ~> source2",
 				"source1 aggregate(attributes = collect(attributes),",
 				"          hours = collect(hours)) ~> aggregate1",
 				"aggregate1 foldDown(unroll(hours),",
@@ -133,8 +115,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
-				"flattenAttributes, flattenHours union(byName: true)~> union2",
-				"source2 aggregate() ~> aggregate2"
+				"flattenAttributes, flattenHours union(byName: true)~> union2"
 			]
 		}
 	}
