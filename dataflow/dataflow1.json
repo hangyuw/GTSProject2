@@ -69,6 +69,7 @@
 				"          ByAppointmentOnly = attributes.ByAppointmentOnly,",
 				"          BusinessAcceptsCreditCards = attributes.BusinessAcceptsCreditCards",
 				"     ),",
+				"     partitionBy('hash', 1),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> flattenHours",
 				"source1 select(mapColumn(",
