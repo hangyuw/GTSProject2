@@ -18,7 +18,7 @@
 					"name": "aggregate1"
 				},
 				{
-					"name": "flatten1"
+					"name": "flattenHours"
 				},
 				{
 					"name": "select1"
@@ -27,7 +27,7 @@
 					"name": "union1"
 				},
 				{
-					"name": "flatten2"
+					"name": "flattenAttributes"
 				},
 				{
 					"name": "union2"
@@ -68,7 +68,7 @@
 				"          Sunday = hours.Sunday",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten1",
+				"     skipDuplicateMapOutputs: false) ~> flattenHours",
 				"source1 select(mapColumn(",
 				"          business_id,",
 				"          name,",
@@ -114,8 +114,8 @@
 				"          NoiseLevel = attributes.NoiseLevel",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten2",
-				"flatten2, flatten1 union(byName: true)~> union2"
+				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
+				"flattenAttributes, flattenHours union(byName: true)~> union2"
 			]
 		}
 	}
