@@ -57,7 +57,7 @@
 				"     documentForm: 'documentPerLine') ~> source1",
 				"source1 aggregate(attributes = collect(attributes),",
 				"          hours = collect(hours)) ~> aggregate1",
-				"aggregate1 foldDown(unroll(hours),",
+				"aggregate1 foldDown(unrollMultiple(hours,attributes),",
 				"     mapColumn(",
 				"          Monday = hours.Monday,",
 				"          Tuesday = hours.Tuesday,",
