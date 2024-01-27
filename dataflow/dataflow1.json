@@ -85,7 +85,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1, union2 union(byName: true)~> union1",
+				"select1, union2 union(byName: false)~> union1",
 				"aggregate1 foldDown(unroll(attributes),",
 				"     mapColumn(",
 				"          ByAppointmentOnly = attributes.ByAppointmentOnly,",
@@ -115,7 +115,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
-				"flattenAttributes, flattenHours union(byName: true)~> union2"
+				"flattenAttributes, flattenHours union(byName: false)~> union2"
 			]
 		}
 	}
