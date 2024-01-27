@@ -82,7 +82,7 @@
 				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
 				"select1, flattenAttributes union(byName: true)~> union1",
 				"window1 derive(attributes = ERROR_FUNCTION('')) ~> derivedColumn1",
-				"source1 window(over(attributes)) ~> window1",
+				"source1 window(over(attributes = ERROR_FUNCTION(''))) ~> window1",
 				"union1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
