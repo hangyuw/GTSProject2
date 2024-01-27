@@ -27,6 +27,9 @@
 				},
 				{
 					"name": "select1"
+				},
+				{
+					"name": "aggregate1"
 				}
 			],
 			"scriptLines": [
@@ -51,7 +54,7 @@
 				"     limit: 100,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
-				"source1 derive(attributes = ERROR_FUNCTION(''),",
+				"aggregate1 derive(attributes = ERROR_FUNCTION(''),",
 				"          hours = ERROR_FUNCTION('')) ~> derivedColumn1",
 				"derivedColumn1 select(mapColumn(",
 				"          business_id,",
@@ -77,6 +80,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
+				"source1 aggregate(groupBy(attributes)) ~> aggregate1",
 				"select1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
