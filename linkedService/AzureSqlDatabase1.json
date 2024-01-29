@@ -5,8 +5,10 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=hangyu-sql-server.database.windows.net;initial catalog=Project2_Database;user id=a916782044",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDkyRUY4QTg2LTI0NEQtNDRGQy05ODhBLTREQjI1RjA5MUI5Rl8zNjIzZmU0OC1mZDM2LTQ2MDYtODBiNy0yODk4NmMxNjc1MzAiDQp9"
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=hangyu-sql-server.database.windows.net;initial catalog=Project2_Database",
+			"servicePrincipalId": "a916782044",
+			"tenant": "23c95725-e175-4b0b-b655-fddf18eafd32",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDkyRUY4QTg2LTI0NEQtNDRGQy05ODhBLTREQjI1RjA5MUI5Rl9iMzJjMzA3NC02OGE3LTQ0NmEtOWU0OS1iNGYwMTAzOGIwNmMiDQp9"
 		},
 		"connectVia": {
 			"referenceName": "integrationRuntime1",
