@@ -306,7 +306,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "output_business_json",
+						"referenceName": "Json1",
 						"type": "DatasetReference"
 					}
 				]
