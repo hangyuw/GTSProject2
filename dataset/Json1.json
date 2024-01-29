@@ -2,7 +2,7 @@
 	"name": "Json1",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureBlobStorage2",
+			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
@@ -13,8 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "makethisinto1fileaaaaaaaaaaaa",
-				"container": "in1file"
+				"container": "sink-project2"
 			}
 		},
 		"schema": {}
