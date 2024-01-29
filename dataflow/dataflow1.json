@@ -80,6 +80,9 @@
 				},
 				{
 					"name": "select3"
+				},
+				{
+					"name": "select4"
 				}
 			],
 			"scriptLines": [
@@ -245,6 +248,27 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select3",
+				"join4 select(mapColumn(",
+				"          user_id = source3@user_id,",
+				"          name,",
+				"          review_count,",
+				"          yelping_since,",
+				"          average_stars,",
+				"          business_id = select3@business_id,",
+				"          text = select3@text,",
+				"          date = select3@date,",
+				"          compliment_count,",
+				"          review_id,",
+				"          business_id = source3@business_id,",
+				"          stars,",
+				"          useful,",
+				"          funny,",
+				"          cool,",
+				"          text = source3@text,",
+				"          date = source3@date",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select4",
 				"join2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['output_business_json'],",
