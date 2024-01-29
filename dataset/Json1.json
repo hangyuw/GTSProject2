@@ -1,5 +1,5 @@
 {
-	"name": "silver_table",
+	"name": "Json1",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
@@ -13,7 +13,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "silver_table",
 				"container": "sink-project2"
 			}
 		},
