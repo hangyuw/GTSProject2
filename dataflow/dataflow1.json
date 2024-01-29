@@ -205,7 +205,7 @@
 				"aggregate1 foldDown(unrollMultiple(attributes,hours),",
 				"     mapColumn(",
 				"          business_id,",
-				"          NoiseLevel = attributes.DriveThru",
+				"          DriveThru = attributes.DriveThru",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
