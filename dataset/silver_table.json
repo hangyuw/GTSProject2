@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "silver_tablecopy",
-				"container": "sink-project2"
+				"container": "sink-try"
 			}
 		},
 		"schema": {}
