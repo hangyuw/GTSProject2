@@ -91,7 +91,7 @@
 				"     skipDuplicateMapOutputs: false) ~> flatten1",
 				"select2 aggregate(Alcohol = collect(Alcohol)) ~> aggregate2",
 				"flattenAttributes select(mapColumn(",
-				"          attributes = attributes.WiFi,",
+				"          Wifi = attributes.WiFi,",
 				"          hours = attributes.BusinessParking,",
 				"          Alcohol = attributes.Alcohol,",
 				"          RestaurantsAttire = attributes.RestaurantsAttire,",
