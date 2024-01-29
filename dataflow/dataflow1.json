@@ -288,7 +288,7 @@
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join6",
 				"select5, select4 join(select5@business_id == select4@business_id,",
-				"     joinType:'left',",
+				"     joinType:'right',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join7",
