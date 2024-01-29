@@ -3,30 +3,6 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup1",
-				"type": "Lookup",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "AzureSqlTable1",
-						"type": "DatasetReference"
-					}
-				}
-			},
-			{
 				"name": "Script1",
 				"type": "Script",
 				"dependsOn": [],
@@ -45,7 +21,8 @@
 				"typeProperties": {
 					"scripts": [
 						{
-							"type": "Query"
+							"type": "Query",
+							"text": "CREATE TABLE SilverTable (\n    name NVARCHAR(MAX),\n    address NVARCHAR(MAX),\n    city NVARCHAR(MAX),\n    state NVARCHAR(MAX),\n    postal_code NVARCHAR(MAX),\n    stars FLOAT,\n    review_count INT,\n    categories NVARCHAR(MAX),\n    business_id NVARCHAR(50),\n    user_id NVARCHAR(50),\n    review_id NVARCHAR(50),\n    review_stars INT,\n    review_time TIME\n);\n"
 						}
 					],
 					"scriptBlockExecutionTimeout": "02:00:00"
