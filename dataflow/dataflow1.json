@@ -84,9 +84,6 @@
 					"name": "select4"
 				},
 				{
-					"name": "join5"
-				},
-				{
 					"name": "select5"
 				},
 				{
@@ -95,6 +92,9 @@
 				{
 					"name": "join6",
 					"description": "left join on 'source5' and 'source4'"
+				},
+				{
+					"name": "join7"
 				}
 			],
 			"scriptLines": [
@@ -257,11 +257,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select4",
-				"select5, select4 join(select5@business_id == select4@business_id,",
-				"     joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join5",
 				"join2 select(mapColumn(",
 				"          business_id = select2@business_id,",
 				"          hours,",
@@ -279,8 +274,8 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select5",
-				"join5 select(mapColumn(",
-				"          business_id = select5@business_id,",
+				"join7 select(mapColumn(",
+				"          business_id,",
 				"          {business stars} = stars,",
 				"          {business reviews count} = review_count,",
 				"          {business hours} = hours,",
@@ -311,6 +306,11 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join6",
+				"select5 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join7",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['silver_table'],",
