@@ -37,12 +37,6 @@
 				},
 				{
 					"name": "union1"
-				},
-				{
-					"name": "derivedColumn1"
-				},
-				{
-					"name": "window1"
 				}
 			],
 			"scriptLines": [
@@ -67,22 +61,20 @@
 				"     limit: 20,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
-				"derivedColumn1 aggregate(groupBy(business_id),",
+				"source1 aggregate(groupBy(business_id),",
 				"     attributes = collect(business_id),",
 				"          hours = collect(hours)) ~> aggregate1",
 				"source1 select(skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"aggregate1 foldDown(unrollMultiple(attributes,hours),",
 				"     mapColumn(",
-				"          attributes = attributes,",
+				"          attributes,",
 				"          BusinessParking = attributes.BusinessParking,",
-				"          hours = hours",
+				"          hours",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
 				"select1, flattenAttributes union(byName: true)~> union1",
-				"window1 derive(attributes = ERROR_FUNCTION('')) ~> derivedColumn1",
-				"source1 window(over(attributes = ERROR_FUNCTION(''))) ~> window1",
 				"union1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
