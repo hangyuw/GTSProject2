@@ -52,7 +52,7 @@
 								"output_tip": "output_tip_json"
 							},
 							"sink5": {
-								"output_user": "output_tip_json"
+								"output_user": "output_user_json"
 							}
 						}
 					},
@@ -134,7 +134,10 @@
 				"outputs": [
 					{
 						"referenceName": "output_business_json",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"output_business": "output_business_json"
+						}
 					}
 				]
 			}
