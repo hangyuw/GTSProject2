@@ -49,7 +49,18 @@
 					"name": "sink1"
 				},
 				{
+					"dataset": {
+						"referenceName": "output_checkin_json",
+						"type": "DatasetReference"
+					},
 					"name": "sink2"
+				},
+				{
+					"dataset": {
+						"referenceName": "output_review_json",
+						"type": "DatasetReference"
+					},
+					"name": "sink3"
 				}
 			],
 			"transformations": [
@@ -220,7 +231,11 @@
 				"source2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink2"
+				"     skipDuplicateMapOutputs: true) ~> sink2",
+				"source3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink3"
 			]
 		}
 	}
