@@ -202,7 +202,7 @@
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
 				"flattenAttributes select(mapColumn(",
-				"          attributes,",
+				"          attributes = attributes.ByAppointmentOnly,",
 				"          hours,",
 				"          business_id",
 				"     ),",
