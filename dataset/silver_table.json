@@ -1,5 +1,5 @@
 {
-	"name": "output_business_json",
+	"name": "silver_table",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
