@@ -121,7 +121,7 @@
 				"          {user given average stars},",
 				"          review_id,",
 				"          business_id,",
-				"          stars,",
+				"          {review stars} = stars,",
 				"          {review date} = date",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
