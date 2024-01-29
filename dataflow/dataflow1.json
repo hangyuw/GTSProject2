@@ -68,7 +68,7 @@
 				},
 				{
 					"name": "join1",
-					"description": "right outer join on 'select2' and 'select1'"
+					"description": "inner outer join on 'select2' and 'select1'"
 				},
 				{
 					"name": "join2",
@@ -305,7 +305,7 @@
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join6",
 				"select5, select4 join(select5@business_id == select4@business_id,",
-				"     joinType:'right',",
+				"     joinType:'outer',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join7",
