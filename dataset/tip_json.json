@@ -1,5 +1,5 @@
 {
-	"name": "tip_jason",
+	"name": "tip_json",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",

@@ -1,5 +1,5 @@
 {
-	"name": "review_jason",
+	"name": "review_json",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",

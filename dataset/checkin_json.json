@@ -1,5 +1,5 @@
 {
-	"name": "checkin_jason",
+	"name": "checkin_json",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
