@@ -72,10 +72,11 @@
 				},
 				{
 					"name": "join2",
-					"description": "full outer join on 'join1' and 'source2'"
+					"description": "left outer join on 'join1' and 'source2'"
 				},
 				{
-					"name": "join4"
+					"name": "join4",
+					"description": "full outer join on 'select3' and 'source3'"
 				},
 				{
 					"name": "select3"
@@ -91,7 +92,7 @@
 				},
 				{
 					"name": "join6",
-					"description": "left join on 'source5' and 'source4'"
+					"description": "full join on 'source5' and 'source4'"
 				},
 				{
 					"name": "join7",
