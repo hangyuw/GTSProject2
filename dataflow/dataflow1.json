@@ -245,7 +245,6 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select3",
 				"join4 select(mapColumn(",
-				"          user_id = select3@user_id,",
 				"          {user name},",
 				"          review_count,",
 				"          yelping_since,",
