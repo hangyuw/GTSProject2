@@ -233,7 +233,7 @@
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join2",
 				"source5, source4 join(source5@user_id == source4@user_id,",
-				"     joinType:'right',",
+				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join3",
