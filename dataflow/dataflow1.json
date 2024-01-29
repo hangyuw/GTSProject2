@@ -37,6 +37,9 @@
 				},
 				{
 					"name": "union1"
+				},
+				{
+					"name": "flatten1"
 				}
 			],
 			"scriptLines": [
@@ -75,6 +78,14 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> flattenAttributes",
 				"select1, flattenAttributes union(byName: true)~> union1",
+				"flattenAttributes foldDown(unroll(),",
+				"     mapColumn(",
+				"          attributes,",
+				"          BusinessParking,",
+				"          hours",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten1",
 				"union1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
