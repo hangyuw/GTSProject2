@@ -40,6 +40,12 @@
 				},
 				{
 					"name": "flatten1"
+				},
+				{
+					"name": "aggregate2"
+				},
+				{
+					"name": "select2"
 				}
 			],
 			"scriptLines": [
@@ -77,7 +83,7 @@
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
 				"select1, flattenAttributes union(byName: true)~> union1",
-				"flattenAttributes foldDown(unroll(),",
+				"aggregate2 foldDown(unroll(),",
 				"     mapColumn(",
 				"          attributes,",
 				"          BusinessParking,",
@@ -85,6 +91,13 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flatten1",
+				"select2 aggregate() ~> aggregate2",
+				"flattenAttributes select(mapColumn(",
+				"          attributes,",
+				"          hours",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
 				"union1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
