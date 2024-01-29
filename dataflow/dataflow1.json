@@ -74,6 +74,9 @@
 				},
 				{
 					"name": "join3"
+				},
+				{
+					"name": "join4"
 				}
 			],
 			"scriptLines": [
@@ -224,11 +227,16 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join2",
-				"source5, source4 join(source5@user_id == ERROR_FUNCTION(''),",
+				"source5, source4 join(source5@user_id == source4@user_id,",
 				"     joinType:'outer',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join3",
+				"join3, source3 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join4",
 				"join2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['output_business_json'],",
