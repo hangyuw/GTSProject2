@@ -7,7 +7,8 @@
 		},
 		"parameters": {
 			"output_checkin": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "output_checkin_json"
 			}
 		},
 		"folder": {
@@ -18,10 +19,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().output_checkin",
-					"type": "Expression"
-				},
+				"fileName": "output_checkin_json",
 				"container": "sink-data"
 			}
 		},

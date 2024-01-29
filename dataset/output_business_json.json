@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"output_business_json": {
+			"output_business": {
 				"type": "string",
 				"defaultValue": "output_business_json"
 			}
@@ -19,10 +19,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().output_business",
-					"type": "Expression"
-				},
+				"fileName": "output_business_json",
 				"container": "sink-data"
 			}
 		},
