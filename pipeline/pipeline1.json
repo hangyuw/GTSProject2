@@ -120,9 +120,16 @@
 				}
 			},
 			{
-				"name": "Power Query1",
-				"type": "ExecuteWranglingDataflow",
-				"dependsOn": [],
+				"name": "Notebook1",
+				"type": "SynapseNotebook",
+				"dependsOn": [
+					{
+						"activity": "Flattern Raw data",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -132,11 +139,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"compute": {
-						"coreCount": 8,
-						"computeType": "General"
-					},
-					"queries": []
+					"snapshot": true
 				}
 			}
 		],
