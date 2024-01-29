@@ -33,6 +33,12 @@
 				},
 				{
 					"name": "select1"
+				},
+				{
+					"name": "join2"
+				},
+				{
+					"name": "join3"
 				}
 			],
 			"scriptLines": [
@@ -99,14 +105,22 @@
 				"          user_id = source3@user_id,",
 				"          name,",
 				"          review_count,",
-				"          yelping_since,",
 				"          average_stars,",
-				"          user_id = source2@user_id,",
 				"          business_id,",
 				"          date",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"source1 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join2",
+				"select1 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join3"
 			]
 		}
 	}
