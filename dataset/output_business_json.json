@@ -19,7 +19,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "output_business_json",
 				"container": "sink-data"
 			}
 		},

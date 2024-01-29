@@ -7,7 +7,8 @@
 		},
 		"parameters": {
 			"output_user": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "output_user_json"
 			}
 		},
 		"folder": {
@@ -18,10 +19,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().output_user",
-					"type": "Expression"
-				},
 				"container": "sink-data"
 			}
 		},

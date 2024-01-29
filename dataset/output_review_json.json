@@ -7,7 +7,8 @@
 		},
 		"parameters": {
 			"output_review": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "output_review_json"
 			}
 		},
 		"folder": {
@@ -18,10 +19,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().output_review",
-					"type": "Expression"
-				},
 				"container": "sink-data"
 			}
 		},
