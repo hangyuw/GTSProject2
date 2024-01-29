@@ -12,19 +12,7 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [
-				{
-					"dataset": {
-						"referenceName": "output_business_json",
-						"type": "DatasetReference"
-					},
-					"name": "sink1",
-					"rejectedDataLinkedService": {
-						"referenceName": "AzureBlobStorage1",
-						"type": "LinkedServiceReference"
-					}
-				}
-			],
+			"sinks": [],
 			"transformations": [
 				{
 					"name": "aggregate1"
@@ -34,9 +22,6 @@
 				},
 				{
 					"name": "flattenAttributes"
-				},
-				{
-					"name": "union1"
 				},
 				{
 					"name": "select2"
@@ -90,7 +75,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
-				"select1, flattenAttributes union(byName: true)~> union1",
 				"flattenAttributes select(mapColumn(",
 				"          BikeParking = attributes.BikeParking,",
 				"          RestaurantsPriceRange2 = attributes.RestaurantsPriceRange2,",
@@ -117,11 +101,7 @@
 				"          Sunday = hours.Sunday",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select2",
-				"union1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true) ~> select2"
 			]
 		}
 	}
