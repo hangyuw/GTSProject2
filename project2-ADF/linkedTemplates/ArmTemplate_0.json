@@ -56,6 +56,33 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Output_data')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Output Data"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Json1.json",
+						"container": "sink-project2"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/business_json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -226,19 +253,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/checkin_jason')]",
+			"name": "[concat(parameters('factoryName'), '/checkin_json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"input_checkin": {
-						"type": "string",
-						"defaultValue": "yelp_academic_dataset_checkin.json"
-					}
 				},
 				"folder": {
 					"name": "Source_Data"
@@ -272,7 +293,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/output_business_json')]",
+			"name": "[concat(parameters('factoryName'), '/import1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -280,25 +301,692 @@
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
 				},
-				"parameters": {
-					"output_business": {
-						"type": "string",
-						"defaultValue": "output_business_json"
-					}
-				},
 				"folder": {
-					"name": "Sink_Data"
+					"name": "Import Data"
 				},
 				"annotations": [],
 				"type": "Json",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().output_business",
-							"type": "Expression"
+						"fileName": "yelp_academic_dataset_business.json",
+						"container": "import-project2"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"business_id": {
+							"type": "string"
 						},
-						"container": "sink-data"
+						"name": {
+							"type": "string"
+						},
+						"address": {
+							"type": "string"
+						},
+						"city": {
+							"type": "string"
+						},
+						"state": {
+							"type": "string"
+						},
+						"postal_code": {
+							"type": "string"
+						},
+						"latitude": {
+							"type": "number"
+						},
+						"longitude": {
+							"type": "number"
+						},
+						"stars": {
+							"type": "number"
+						},
+						"review_count": {
+							"type": "integer"
+						},
+						"is_open": {
+							"type": "integer"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"ByAppointmentOnly": {
+									"type": "string"
+								},
+								"BusinessAcceptsCreditCards": {
+									"type": "string"
+								},
+								"BikeParking": {
+									"type": "string"
+								},
+								"RestaurantsPriceRange2": {
+									"type": "string"
+								},
+								"CoatCheck": {
+									"type": "string"
+								},
+								"RestaurantsTakeOut": {
+									"type": "string"
+								},
+								"RestaurantsDelivery": {
+									"type": "string"
+								},
+								"Caters": {
+									"type": "string"
+								},
+								"WiFi": {
+									"type": "string"
+								},
+								"BusinessParking": {
+									"type": "string"
+								},
+								"WheelchairAccessible": {
+									"type": "string"
+								},
+								"HappyHour": {
+									"type": "string"
+								},
+								"OutdoorSeating": {
+									"type": "string"
+								},
+								"HasTV": {
+									"type": "string"
+								},
+								"RestaurantsReservations": {
+									"type": "string"
+								},
+								"DogsAllowed": {
+									"type": "string"
+								},
+								"Alcohol": {
+									"type": "string"
+								},
+								"GoodForKids": {
+									"type": "string"
+								},
+								"RestaurantsAttire": {
+									"type": "string"
+								},
+								"Ambience": {
+									"type": "string"
+								},
+								"RestaurantsTableService": {
+									"type": "string"
+								},
+								"RestaurantsGoodForGroups": {
+									"type": "string"
+								},
+								"DriveThru": {
+									"type": "string"
+								},
+								"NoiseLevel": {
+									"type": "string"
+								}
+							}
+						},
+						"categories": {
+							"type": "string"
+						},
+						"hours": {
+							"type": "object",
+							"properties": {
+								"Monday": {
+									"type": "string"
+								},
+								"Tuesday": {
+									"type": "string"
+								},
+								"Wednesday": {
+									"type": "string"
+								},
+								"Thursday": {
+									"type": "string"
+								},
+								"Friday": {
+									"type": "string"
+								},
+								"Saturday": {
+									"type": "string"
+								},
+								"Sunday": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/import2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Import Data"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "import-project2"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"business_id": {
+							"type": "string"
+						},
+						"name": {
+							"type": "string"
+						},
+						"address": {
+							"type": "string"
+						},
+						"city": {
+							"type": "string"
+						},
+						"state": {
+							"type": "string"
+						},
+						"postal_code": {
+							"type": "string"
+						},
+						"latitude": {
+							"type": "number"
+						},
+						"longitude": {
+							"type": "number"
+						},
+						"stars": {
+							"type": "number"
+						},
+						"review_count": {
+							"type": "integer"
+						},
+						"is_open": {
+							"type": "integer"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"ByAppointmentOnly": {
+									"type": "string"
+								},
+								"BusinessAcceptsCreditCards": {
+									"type": "string"
+								},
+								"BikeParking": {
+									"type": "string"
+								},
+								"RestaurantsPriceRange2": {
+									"type": "string"
+								},
+								"CoatCheck": {
+									"type": "string"
+								},
+								"RestaurantsTakeOut": {
+									"type": "string"
+								},
+								"RestaurantsDelivery": {
+									"type": "string"
+								},
+								"Caters": {
+									"type": "string"
+								},
+								"WiFi": {
+									"type": "string"
+								},
+								"BusinessParking": {
+									"type": "string"
+								},
+								"WheelchairAccessible": {
+									"type": "string"
+								},
+								"HappyHour": {
+									"type": "string"
+								},
+								"OutdoorSeating": {
+									"type": "string"
+								},
+								"HasTV": {
+									"type": "string"
+								},
+								"RestaurantsReservations": {
+									"type": "string"
+								},
+								"DogsAllowed": {
+									"type": "string"
+								},
+								"Alcohol": {
+									"type": "string"
+								},
+								"GoodForKids": {
+									"type": "string"
+								},
+								"RestaurantsAttire": {
+									"type": "string"
+								},
+								"Ambience": {
+									"type": "string"
+								},
+								"RestaurantsTableService": {
+									"type": "string"
+								},
+								"RestaurantsGoodForGroups": {
+									"type": "string"
+								},
+								"DriveThru": {
+									"type": "string"
+								},
+								"NoiseLevel": {
+									"type": "string"
+								}
+							}
+						},
+						"categories": {
+							"type": "string"
+						},
+						"hours": {
+							"type": "object",
+							"properties": {
+								"Monday": {
+									"type": "string"
+								},
+								"Tuesday": {
+									"type": "string"
+								},
+								"Wednesday": {
+									"type": "string"
+								},
+								"Thursday": {
+									"type": "string"
+								},
+								"Friday": {
+									"type": "string"
+								},
+								"Saturday": {
+									"type": "string"
+								},
+								"Sunday": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/import3')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Import Data"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "import-project2"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"business_id": {
+							"type": "string"
+						},
+						"name": {
+							"type": "string"
+						},
+						"address": {
+							"type": "string"
+						},
+						"city": {
+							"type": "string"
+						},
+						"state": {
+							"type": "string"
+						},
+						"postal_code": {
+							"type": "string"
+						},
+						"latitude": {
+							"type": "number"
+						},
+						"longitude": {
+							"type": "number"
+						},
+						"stars": {
+							"type": "number"
+						},
+						"review_count": {
+							"type": "integer"
+						},
+						"is_open": {
+							"type": "integer"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"ByAppointmentOnly": {
+									"type": "string"
+								},
+								"BusinessAcceptsCreditCards": {
+									"type": "string"
+								},
+								"BikeParking": {
+									"type": "string"
+								},
+								"RestaurantsPriceRange2": {
+									"type": "string"
+								},
+								"CoatCheck": {
+									"type": "string"
+								},
+								"RestaurantsTakeOut": {
+									"type": "string"
+								},
+								"RestaurantsDelivery": {
+									"type": "string"
+								},
+								"Caters": {
+									"type": "string"
+								},
+								"WiFi": {
+									"type": "string"
+								},
+								"BusinessParking": {
+									"type": "string"
+								},
+								"WheelchairAccessible": {
+									"type": "string"
+								},
+								"HappyHour": {
+									"type": "string"
+								},
+								"OutdoorSeating": {
+									"type": "string"
+								},
+								"HasTV": {
+									"type": "string"
+								},
+								"RestaurantsReservations": {
+									"type": "string"
+								},
+								"DogsAllowed": {
+									"type": "string"
+								},
+								"Alcohol": {
+									"type": "string"
+								},
+								"GoodForKids": {
+									"type": "string"
+								},
+								"RestaurantsAttire": {
+									"type": "string"
+								},
+								"Ambience": {
+									"type": "string"
+								},
+								"RestaurantsTableService": {
+									"type": "string"
+								},
+								"RestaurantsGoodForGroups": {
+									"type": "string"
+								},
+								"DriveThru": {
+									"type": "string"
+								},
+								"NoiseLevel": {
+									"type": "string"
+								}
+							}
+						},
+						"categories": {
+							"type": "string"
+						},
+						"hours": {
+							"type": "object",
+							"properties": {
+								"Monday": {
+									"type": "string"
+								},
+								"Tuesday": {
+									"type": "string"
+								},
+								"Wednesday": {
+									"type": "string"
+								},
+								"Thursday": {
+									"type": "string"
+								},
+								"Friday": {
+									"type": "string"
+								},
+								"Saturday": {
+									"type": "string"
+								},
+								"Sunday": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/import4')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Import Data"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "import-project2"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"business_id": {
+							"type": "string"
+						},
+						"name": {
+							"type": "string"
+						},
+						"address": {
+							"type": "string"
+						},
+						"city": {
+							"type": "string"
+						},
+						"state": {
+							"type": "string"
+						},
+						"postal_code": {
+							"type": "string"
+						},
+						"latitude": {
+							"type": "number"
+						},
+						"longitude": {
+							"type": "number"
+						},
+						"stars": {
+							"type": "number"
+						},
+						"review_count": {
+							"type": "integer"
+						},
+						"is_open": {
+							"type": "integer"
+						},
+						"attributes": {
+							"type": "object",
+							"properties": {
+								"ByAppointmentOnly": {
+									"type": "string"
+								},
+								"BusinessAcceptsCreditCards": {
+									"type": "string"
+								},
+								"BikeParking": {
+									"type": "string"
+								},
+								"RestaurantsPriceRange2": {
+									"type": "string"
+								},
+								"CoatCheck": {
+									"type": "string"
+								},
+								"RestaurantsTakeOut": {
+									"type": "string"
+								},
+								"RestaurantsDelivery": {
+									"type": "string"
+								},
+								"Caters": {
+									"type": "string"
+								},
+								"WiFi": {
+									"type": "string"
+								},
+								"BusinessParking": {
+									"type": "string"
+								},
+								"WheelchairAccessible": {
+									"type": "string"
+								},
+								"HappyHour": {
+									"type": "string"
+								},
+								"OutdoorSeating": {
+									"type": "string"
+								},
+								"HasTV": {
+									"type": "string"
+								},
+								"RestaurantsReservations": {
+									"type": "string"
+								},
+								"DogsAllowed": {
+									"type": "string"
+								},
+								"Alcohol": {
+									"type": "string"
+								},
+								"GoodForKids": {
+									"type": "string"
+								},
+								"RestaurantsAttire": {
+									"type": "string"
+								},
+								"Ambience": {
+									"type": "string"
+								},
+								"RestaurantsTableService": {
+									"type": "string"
+								},
+								"RestaurantsGoodForGroups": {
+									"type": "string"
+								},
+								"DriveThru": {
+									"type": "string"
+								},
+								"NoiseLevel": {
+									"type": "string"
+								}
+							}
+						},
+						"categories": {
+							"type": "string"
+						},
+						"hours": {
+							"type": "object",
+							"properties": {
+								"Monday": {
+									"type": "string"
+								},
+								"Tuesday": {
+									"type": "string"
+								},
+								"Wednesday": {
+									"type": "string"
+								},
+								"Thursday": {
+									"type": "string"
+								},
+								"Friday": {
+									"type": "string"
+								},
+								"Saturday": {
+									"type": "string"
+								},
+								"Sunday": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/import5')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Import Data"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "import-project2"
 					}
 				},
 				"schema": {}
@@ -308,7 +996,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/output_checkin_json')]",
+			"name": "[concat(parameters('factoryName'), '/silver_table')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -316,24 +1004,16 @@
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
 				},
-				"parameters": {
-					"output_checkin": {
-						"type": "string"
-					}
-				},
 				"folder": {
-					"name": "Sink_Data"
+					"name": "Sink Data"
 				},
 				"annotations": [],
 				"type": "Json",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().output_checkin",
-							"type": "Expression"
-						},
-						"container": "sink-data"
+						"fileName": "silver_table",
+						"container": "sink-project2"
 					}
 				},
 				"schema": {}
@@ -343,124 +1023,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/output_review_json')]",
+			"name": "[concat(parameters('factoryName'), '/review_json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"output_review": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "Sink_Data"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().output_review",
-							"type": "Expression"
-						},
-						"container": "sink-data"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/output_tip_json')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"output_tip": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "Sink_Data"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().output_tip",
-							"type": "Expression"
-						},
-						"container": "sink-data"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/output_user_json')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"output_user": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "Sink_Data"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().output_user",
-							"type": "Expression"
-						},
-						"container": "sink-data"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/review_jason')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"input_review": {
-						"type": "string",
-						"defaultValue": "yelp_academic_dataset_review.json"
-					}
 				},
 				"folder": {
 					"name": "Source_Data"
@@ -515,19 +1084,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/tip_jason')]",
+			"name": "[concat(parameters('factoryName'), '/tip_json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"input_tip": {
-						"type": "string",
-						"defaultValue": "yelp_academic_dataset_tip.json"
-					}
 				},
 				"folder": {
 					"name": "Source_Data"
@@ -577,12 +1140,6 @@
 				"linkedServiceName": {
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"input_user": {
-						"type": "string",
-						"defaultValue": "yelp_academic_dataset_user.json"
-					}
 				},
 				"folder": {
 					"name": "Source_Data"
@@ -692,21 +1249,21 @@
 						},
 						{
 							"dataset": {
-								"referenceName": "checkin_jason",
+								"referenceName": "checkin_json",
 								"type": "DatasetReference"
 							},
 							"name": "source2"
 						},
 						{
 							"dataset": {
-								"referenceName": "review_jason",
+								"referenceName": "review_json",
 								"type": "DatasetReference"
 							},
 							"name": "source3"
 						},
 						{
 							"dataset": {
-								"referenceName": "tip_jason",
+								"referenceName": "tip_json",
 								"type": "DatasetReference"
 							},
 							"name": "source4"
@@ -722,38 +1279,14 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "output_business_json",
+								"referenceName": "Output_data",
 								"type": "DatasetReference"
 							},
-							"name": "sink1"
-						},
-						{
-							"dataset": {
-								"referenceName": "output_checkin_json",
-								"type": "DatasetReference"
-							},
-							"name": "sink2"
-						},
-						{
-							"dataset": {
-								"referenceName": "output_review_json",
-								"type": "DatasetReference"
-							},
-							"name": "sink3"
-						},
-						{
-							"dataset": {
-								"referenceName": "output_tip_json",
-								"type": "DatasetReference"
-							},
-							"name": "sink4"
-						},
-						{
-							"dataset": {
-								"referenceName": "output_user_json",
-								"type": "DatasetReference"
-							},
-							"name": "sink5"
+							"name": "sink1",
+							"rejectedDataLinkedService": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							}
 						}
 					],
 					"transformations": [
@@ -771,6 +1304,30 @@
 						},
 						{
 							"name": "join1"
+						},
+						{
+							"name": "join2"
+						},
+						{
+							"name": "join3"
+						},
+						{
+							"name": "join4"
+						},
+						{
+							"name": "select3"
+						},
+						{
+							"name": "select4"
+						},
+						{
+							"name": "join5"
+						},
+						{
+							"name": "select5"
+						},
+						{
+							"name": "select6"
 						}
 					],
 					"scriptLines": [
@@ -792,12 +1349,11 @@
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     limit: 20,",
 						"     ignoreNoFilesFound: false,",
 						"     documentForm: 'documentPerLine') ~> source1",
 						"source(output(",
 						"          business_id as string,",
-						"          date as string",
+						"          date as date",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
@@ -812,7 +1368,7 @@
 						"          funny as integer,",
 						"          cool as integer,",
 						"          text as string,",
-						"          date as string",
+						"          date as date",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
@@ -822,19 +1378,18 @@
 						"          user_id as string,",
 						"          business_id as string,",
 						"          text as string,",
-						"          date as string,",
+						"          date as date,",
 						"          compliment_count as integer",
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     limit: 30,",
 						"     ignoreNoFilesFound: false,",
 						"     documentForm: 'documentPerLine') ~> source4",
 						"source(output(",
 						"          user_id as string,",
 						"          name as string,",
 						"          review_count as integer,",
-						"          yelping_since as string,",
+						"          yelping_since as date,",
 						"          useful as integer,",
 						"          funny as integer,",
 						"          cool as integer,",
@@ -868,15 +1423,12 @@
 						"          city,",
 						"          state,",
 						"          postal_code,",
-						"          latitude,",
-						"          longitude,",
 						"          stars,",
 						"          review_count,",
-						"          is_open,",
 						"          categories",
 						"     ),",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> select1",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> select1",
 						"aggregate1 foldDown(unrollMultiple(attributes,hours),",
 						"     mapColumn(",
 						"          attributes,",
@@ -886,72 +1438,131 @@
 						"     skipDuplicateMapInputs: false,",
 						"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
 						"flattenAttributes select(mapColumn(",
-						"          BikeParking = attributes.BikeParking,",
-						"          RestaurantsPriceRange2 = attributes.RestaurantsPriceRange2,",
-						"          CoatCheck = attributes.CoatCheck,",
-						"          RestaurantsTakeOut = attributes.RestaurantsTakeOut,",
+						"          business_id,",
+						"          attributes = attributes.ByAppointmentOnly,",
+						"          hours = attributes.BusinessAcceptsCreditCards,",
+						"          BikeParking = attributes.RestaurantsTakeOut,",
 						"          RestaurantsDelivery = attributes.RestaurantsDelivery,",
-						"          Caters = attributes.Caters,",
-						"          WiFi = attributes.WiFi,",
-						"          WheelchairAccessible = attributes.WheelchairAccessible,",
-						"          HappyHour = attributes.HappyHour,",
-						"          OutdoorSeating = attributes.OutdoorSeating,",
-						"          BusinessAcceptsCreditCards = attributes.BusinessAcceptsCreditCards,",
-						"          ByAppointmentOnly = attributes.ByAppointmentOnly,",
-						"          HasTV = attributes.HasTV,",
-						"          RestaurantsReservations = attributes.RestaurantsReservations,",
-						"          GoodForKids = attributes.GoodForKids,",
-						"          RestaurantsGoodForGroups = attributes.RestaurantsGoodForGroups,",
-						"          hours = hours.Monday,",
-						"          Tuesday = hours.Tuesday,",
-						"          Wednesday = hours.Wednesday,",
-						"          Thursday = hours.Thursday,",
-						"          Friday = hours.Friday,",
-						"          Saturday = hours.Saturday,",
-						"          Sunday = hours.Sunday,",
-						"          business_id",
+						"          DriveThru = attributes.DriveThru,",
+						"          OutdoorSeating = attributes.OutdoorSeating",
 						"     ),",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true) ~> select2",
 						"select2, select1 join(select2@business_id == select1@business_id,",
-						"     joinType:'outer',",
+						"     joinType:'right',",
 						"     matchType:'exact',",
 						"     ignoreSpaces: false,",
 						"     broadcast: 'auto')~> join1",
-						"join1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
+						"join1, source2 join(select2@business_id == source2@business_id,",
+						"     joinType:'left',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join2",
+						"source5, source4 join(source5@user_id == source4@user_id,",
+						"     joinType:'left',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join3",
+						"select3, source3 join(select3@user_id == source3@user_id,",
+						"     joinType:'right',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join4",
+						"join3 select(mapColumn(",
+						"          user_id = source5@user_id,",
+						"          {user name} = name,",
+						"          review_count,",
+						"          yelping_since,",
+						"          average_stars,",
+						"          business_id,",
+						"          {tip text} = text,",
+						"          {tip date} = date",
+						"     ),",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink1",
-						"source2 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
+						"     skipDuplicateMapOutputs: true) ~> select3",
+						"join4 select(mapColumn(",
+						"          {user total reviews} = review_count,",
+						"          {user yelping since} = yelping_since,",
+						"          {user giving average_stars} = average_stars,",
+						"          {tip text},",
+						"          {tip date},",
+						"          review_id,",
+						"          user_id = source3@user_id,",
+						"          {user name},",
+						"          business_id = source3@business_id,",
+						"          {stars user given in review} = stars,",
+						"          {review date} = date",
+						"     ),",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink2",
-						"source3 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
+						"     skipDuplicateMapOutputs: true) ~> select4",
+						"select5, select4 join(select5@business_id == select4@business_id,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join5",
+						"join2 select(mapColumn(",
+						"          business_id = select1@business_id,",
+						"          hours,",
+						"          RestaurantsDelivery,",
+						"          DriveThru,",
+						"          OutdoorSeating,",
+						"          name,",
+						"          address,",
+						"          city,",
+						"          state,",
+						"          postal_code,",
+						"          stars,",
+						"          review_count,",
+						"          categories",
+						"     ),",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink3",
-						"source4 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
+						"     skipDuplicateMapOutputs: true) ~> select5",
+						"join5 select(mapColumn(",
+						"          business_id = select5@business_id,",
+						"          {business stars} = stars,",
+						"          {business reviews count} = review_count,",
+						"          {business hours} = hours,",
+						"          {business name} = name,",
+						"          categories,",
+						"          state,",
+						"          address,",
+						"          city,",
+						"          postal_code,",
+						"          RestaurantsDelivery,",
+						"          DriveThru,",
+						"          OutdoorSeating,",
+						"          review_id,",
+						"          {stars given} = {stars user given in review},",
+						"          {review date},",
+						"          user_id,",
+						"          {user name},",
+						"          {user total reviews},",
+						"          {user yelping since},",
+						"          {user giving average_stars},",
+						"          {tip text},",
+						"          {tip date}",
+						"     ),",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink4",
-						"source5 sink(allowSchemaDrift: true,",
+						"     skipDuplicateMapOutputs: true) ~> select6",
+						"select6 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     partitionFileNames:['silver_table'],",
+						"     truncate: true,",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink5"
+						"     skipDuplicateMapOutputs: true,",
+						"     saveOrder: 0,",
+						"     partitionBy('hash', 1)) ~> sink1"
 					]
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/business_json')]",
-				"[concat(variables('factoryId'), '/datasets/checkin_jason')]",
-				"[concat(variables('factoryId'), '/datasets/review_jason')]",
-				"[concat(variables('factoryId'), '/datasets/tip_jason')]",
+				"[concat(variables('factoryId'), '/datasets/checkin_json')]",
+				"[concat(variables('factoryId'), '/datasets/review_json')]",
+				"[concat(variables('factoryId'), '/datasets/tip_json')]",
 				"[concat(variables('factoryId'), '/datasets/user_json')]",
-				"[concat(variables('factoryId'), '/datasets/output_business_json')]",
-				"[concat(variables('factoryId'), '/datasets/output_checkin_json')]",
-				"[concat(variables('factoryId'), '/datasets/output_review_json')]",
-				"[concat(variables('factoryId'), '/datasets/output_tip_json')]",
-				"[concat(variables('factoryId'), '/datasets/output_user_json')]"
+				"[concat(variables('factoryId'), '/datasets/Output_data')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
 			]
 		},
 		{
@@ -987,33 +1598,11 @@
 								"parameters": {},
 								"datasetParameters": {
 									"source1": {},
-									"source2": {
-										"input_checkin": "yelp_academic_dataset_checkin.json"
-									},
-									"source3": {
-										"input_review": "yelp_academic_dataset_review.json"
-									},
-									"source4": {
-										"input_tip": "yelp_academic_dataset_tip.json"
-									},
-									"source5": {
-										"input_user": "yelp_academic_dataset_user.json"
-									},
-									"sink1": {
-										"output_business": "output_business_json"
-									},
-									"sink2": {
-										"output_checkin": "output_checkin_json"
-									},
-									"sink3": {
-										"output_review": "output_review_json"
-									},
-									"sink4": {
-										"output_tip": "output_tip_json"
-									},
-									"sink5": {
-										"output_user": "output_user_json"
-									}
+									"source2": {},
+									"source3": {},
+									"source4": {},
+									"source5": {},
+									"sink1": {}
 								}
 							},
 							"staging": {},
@@ -1022,33 +1611,6 @@
 								"computeType": "General"
 							},
 							"traceLevel": "Fine"
-						}
-					},
-					{
-						"name": "Notebook1",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Flattern Raw data",
-								"dependencyConditions": [
-									"Completed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Repos/GTS/GTSProject1/Project_Source_code/Project"
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks1",
-							"type": "LinkedServiceReference"
 						}
 					},
 					{
@@ -1062,7 +1624,16 @@
 							"secureOutput": false,
 							"secureInput": false
 						},
-						"userProperties": [],
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "source-data//yelp_academic_dataset_business.json"
+							},
+							{
+								"name": "Destination",
+								"value": "sink-data//"
+							}
+						],
 						"typeProperties": {
 							"source": {
 								"type": "JsonSource",
@@ -1095,7 +1666,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "output_business_json",
+								"referenceName": "import1",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -1109,9 +1680,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/dataflow1')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]",
 				"[concat(variables('factoryId'), '/datasets/business_json')]",
-				"[concat(variables('factoryId'), '/datasets/output_business_json')]"
+				"[concat(variables('factoryId'), '/datasets/import1')]"
 			]
 		}
 	]
