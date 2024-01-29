@@ -14,7 +14,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": "yelp_academic_dataset_business.json",
-				"container": "source-data"
+				"container": "import-project2"
 			}
 		},
 		"schema": {
