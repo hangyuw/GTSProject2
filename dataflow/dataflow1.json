@@ -90,7 +90,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
-				"select1, flattenAttributes union(byName: true)~> union1",
+				"select1, select2 union(byName: true)~> union1",
 				"flattenAttributes select(mapColumn(",
 				"          BikeParking = attributes.BikeParking,",
 				"          RestaurantsPriceRange2 = attributes.RestaurantsPriceRange2,",
