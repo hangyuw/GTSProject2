@@ -60,8 +60,7 @@
 				]
 			},
 			{
-				"name": "Flattern Raw data",
-				"description": "Flattern Raw data",
+				"name": "dataflow1_copy1",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
@@ -81,7 +80,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "dataflow1",
+						"referenceName": "dataflow1_copy1",
 						"type": "DataFlowReference"
 					},
 					"compute": {
