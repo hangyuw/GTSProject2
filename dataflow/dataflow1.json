@@ -68,6 +68,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "sink4"
+				},
+				{
+					"dataset": {
+						"referenceName": "output_user_json",
+						"type": "DatasetReference"
+					},
+					"name": "sink5"
 				}
 			],
 			"transformations": [
@@ -247,7 +254,11 @@
 				"source4 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink4"
+				"     skipDuplicateMapOutputs: true) ~> sink4",
+				"source5 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink5"
 			]
 		}
 	}
