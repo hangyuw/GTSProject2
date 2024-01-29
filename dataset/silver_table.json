@@ -1,0 +1,18 @@
+{
+	"name": "silver_table",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "sink-try"
+			}
+		},
+		"schema": {}
+	}
+}
