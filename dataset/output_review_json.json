@@ -19,6 +19,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "output_review_json",
 				"container": "sink-data"
 			}
 		},
