@@ -263,7 +263,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select4",
 				"select5, select4 join(select5@business_id == select4@business_id,",
-				"     joinType:'outer',",
+				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join5",
