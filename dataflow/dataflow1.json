@@ -228,7 +228,7 @@
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join2",
 				"select3, source3 join(select3@user_id == source3@user_id,",
-				"     joinType:'outer',",
+				"     joinType:'right',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join4",
