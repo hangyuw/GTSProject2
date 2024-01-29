@@ -257,7 +257,7 @@
 				"          average_stars,",
 				"          date = select3@date,",
 				"          compliment_count,",
-				"          stars,",
+				"          {reviewer given avg stars} = stars,",
 				"          date = source3@date",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
