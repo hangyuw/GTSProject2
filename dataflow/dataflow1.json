@@ -75,9 +75,6 @@
 					"description": "left outer join on 'join1' and 'source2'"
 				},
 				{
-					"name": "join3"
-				},
-				{
 					"name": "join4"
 				},
 				{
@@ -94,9 +91,6 @@
 				},
 				{
 					"name": "select6"
-				},
-				{
-					"name": "select7"
 				}
 			],
 			"scriptLines": [
@@ -205,17 +199,12 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join2",
-				"select7, source4 join(select7@user_id == source4@user_id,",
-				"     joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join3",
 				"select3, source3 join(select3@user_id == source3@user_id,",
 				"     joinType:'right',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join4",
-				"join3 select(mapColumn(",
+				"source5 select(mapColumn(",
 				"          user_id = source5@user_id,",
 				"          {user name} = name,",
 				"          review_count,",
@@ -236,7 +225,7 @@
 				"          review_id,",
 				"          user_id,",
 				"          {user name},",
-				"          business_id = source3@business_id,",
+				"          business_id,",
 				"          {stars user given in review} = stars,",
 				"          {review date} = date",
 				"     ),",
@@ -291,8 +280,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select6",
-				"source5 select(skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select7",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['silver_table'],",
