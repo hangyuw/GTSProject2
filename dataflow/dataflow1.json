@@ -68,6 +68,12 @@
 				},
 				{
 					"name": "join1"
+				},
+				{
+					"name": "aggregate2"
+				},
+				{
+					"name": "flatten1"
 				}
 			],
 			"scriptLines": [
@@ -213,6 +219,15 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join1",
+				"source2 aggregate(business_id = collect(business_id),",
+				"          date = collect(date)) ~> aggregate2",
+				"aggregate2 foldDown(unrollMultiple(business_id,date),",
+				"     mapColumn(",
+				"          business_id,",
+				"          date",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten1",
 				"join1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['output_business_json'],",
