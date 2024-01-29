@@ -13,7 +13,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"container": "import-project2"
+				"fileName": "yelp_academic_dataset_checkin.json",
+				"container": "source-data"
 			}
 		},
 		"schema": {
