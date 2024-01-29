@@ -312,7 +312,7 @@
 				"     skipDuplicateMapOutputs: true) ~> select6",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     partitionFileNames:['silver_table'],",
+				"     partitionFileNames:['silver_tablecopy'],",
 				"     truncate: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
