@@ -319,7 +319,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select6",
-				"source3 derive(review_id = ERROR_FUNCTION(''),",
+				"source3 derive(review_id = array(),",
 				"          business_id = ERROR_FUNCTION(''),",
 				"          user_id = ERROR_FUNCTION('')) ~> derivedColumn1",
 				"select6 sink(allowSchemaDrift: true,",
