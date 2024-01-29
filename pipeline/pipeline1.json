@@ -112,6 +112,13 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"notebook": {
+						"referenceName": {
+							"value": "@activity('Flattern Raw data').output.pipelineReturnValue",
+							"type": "Expression"
+						},
+						"type": "NotebookReference"
+					},
 					"snapshot": true
 				},
 				"linkedServiceName": {
