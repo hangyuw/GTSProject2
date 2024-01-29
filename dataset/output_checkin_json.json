@@ -19,7 +19,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "part-00022-3363f259-968e-4842-a207-6d73a7ea5da8-c000.json",
+				"fileName": "output_checkin_json",
 				"container": "sink-data"
 			}
 		},

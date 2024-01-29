@@ -19,6 +19,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "output_tip_json",
 				"container": "sink-data"
 			}
 		},
