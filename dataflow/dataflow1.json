@@ -71,9 +71,6 @@
 					"name": "flattenAttributes"
 				},
 				{
-					"name": "select2"
-				},
-				{
 					"name": "join1",
 					"description": "inner outer join on 'select2' and 'select1'"
 				},
@@ -207,16 +204,12 @@
 				"     skipDuplicateMapOutputs: false) ~> select1",
 				"aggregate1 foldDown(unrollMultiple(attributes,hours),",
 				"     mapColumn(",
-				"          business_id",
+				"          business_id,",
+				"          NoiseLevel = attributes.DriveThru",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
-				"flattenAttributes select(mapColumn(",
-				"          business_id",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select2",
-				"select2, select1 join(select2@business_id == select1@business_id,",
+				"flattenAttributes, select1 join(flattenAttributes@business_id == select1@business_id,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
