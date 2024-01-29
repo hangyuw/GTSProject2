@@ -65,7 +65,7 @@
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
 				"source1 aggregate(groupBy(business_id),",
-				"     attributes = collect(business_id),",
+				"     attributes = collect(attributes),",
 				"          hours = collect(hours)) ~> aggregate1",
 				"source1 select(skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
