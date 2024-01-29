@@ -42,9 +42,6 @@
 					"name": "select2"
 				},
 				{
-					"name": "aggregate2"
-				},
-				{
 					"name": "aggregate3"
 				}
 			],
@@ -97,7 +94,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
-				"select1, aggregate2 union(byName: true)~> union1",
+				"select1, select2 union(byName: true)~> union1",
 				"flattenAttributes select(mapColumn(",
 				"          BikeParking = attributes.BikeParking,",
 				"          RestaurantsPriceRange2 = attributes.RestaurantsPriceRange2,",
@@ -126,7 +123,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select2",
-				"select1 aggregate(groupBy(business_id)) ~> aggregate2",
 				"select2 aggregate(groupBy(Business_id)) ~> aggregate3",
 				"union1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
