@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "part-00000-b698d734-15e9-4719-951d-700def9864fc-c000.json",
+				"fileName": "part-00197-a47cb593-ec5c-44fa-b862-335190764fee-c000.json",
 				"container": "sink-data"
 			}
 		},
