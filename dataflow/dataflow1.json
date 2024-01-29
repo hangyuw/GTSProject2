@@ -248,7 +248,6 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select5",
 				"join7 select(mapColumn(",
-				"          business_id = select5@business_id,",
 				"          name,",
 				"          address,",
 				"          city,",
