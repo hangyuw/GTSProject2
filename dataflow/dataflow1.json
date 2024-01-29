@@ -92,9 +92,6 @@
 				},
 				{
 					"name": "select6"
-				},
-				{
-					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -319,9 +316,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select6",
-				"source3 derive(review_id = array(),",
-				"          business_id = ERROR_FUNCTION(''),",
-				"          user_id = ERROR_FUNCTION('')) ~> derivedColumn1",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['output_business_json'],",
