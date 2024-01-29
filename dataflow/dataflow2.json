@@ -12,17 +12,29 @@
 					"name": "source1"
 				},
 				{
+					"dataset": {
+						"referenceName": "tip_json",
+						"type": "DatasetReference"
+					},
 					"name": "source2"
 				},
 				{
+					"dataset": {
+						"referenceName": "user_json",
+						"type": "DatasetReference"
+					},
 					"name": "source3"
-				},
-				{
-					"name": "source4"
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "join1"
+				},
+				{
+					"name": "select1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          review_id as string,",
@@ -39,12 +51,62 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source2",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source3",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source4"
+				"source(output(",
+				"          user_id as string,",
+				"          business_id as string,",
+				"          text as string,",
+				"          date as string,",
+				"          compliment_count as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> source2",
+				"source(output(",
+				"          user_id as string,",
+				"          name as string,",
+				"          review_count as integer,",
+				"          yelping_since as string,",
+				"          useful as integer,",
+				"          funny as integer,",
+				"          cool as integer,",
+				"          elite as string,",
+				"          friends as string,",
+				"          fans as integer,",
+				"          average_stars as double,",
+				"          compliment_hot as integer,",
+				"          compliment_more as integer,",
+				"          compliment_profile as integer,",
+				"          compliment_cute as integer,",
+				"          compliment_list as integer,",
+				"          compliment_note as integer,",
+				"          compliment_plain as integer,",
+				"          compliment_cool as integer,",
+				"          compliment_funny as integer,",
+				"          compliment_writer as integer,",
+				"          compliment_photos as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> source3",
+				"source3, source2 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1 select(mapColumn(",
+				"          user_id = source3@user_id,",
+				"          name,",
+				"          review_count,",
+				"          yelping_since,",
+				"          average_stars,",
+				"          user_id = source2@user_id,",
+				"          business_id,",
+				"          date",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1"
 			]
 		}
 	}
