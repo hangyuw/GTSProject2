@@ -33,10 +33,6 @@
 					"name": "source4"
 				},
 				{
-					"dataset": {
-						"referenceName": "user_json",
-						"type": "DatasetReference"
-					},
 					"name": "source5"
 				}
 			],
@@ -91,6 +87,9 @@
 				},
 				{
 					"name": "select6"
+				},
+				{
+					"name": "join6"
 				}
 			],
 			"scriptLines": [
@@ -151,9 +150,7 @@
 				"     documentForm: 'documentPerLine') ~> source4",
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     limit: 1000,",
-				"     ignoreNoFilesFound: false,",
-				"     documentForm: 'documentPerLine') ~> source5",
+				"     limit: 1000) ~> source5",
 				"source1 aggregate(groupBy(business_id),",
 				"     attributes = collect(attributes),",
 				"          hours = collect(hours)) ~> aggregate1",
@@ -204,7 +201,7 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join4",
-				"source5 select(mapColumn(",
+				"join6 select(mapColumn(",
 				"          user_id = source5@user_id,",
 				"          {user name} = name,",
 				"          review_count,",
@@ -280,6 +277,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select6",
+				"source5 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join6",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['silver_table'],",
