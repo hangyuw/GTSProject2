@@ -252,7 +252,7 @@
 				"          {user name},",
 				"          review_count,",
 				"          yelping_since,",
-				"          average_stars,",
+				"          {user giving average stars} = average_stars,",
 				"          business_id = select3@business_id,",
 				"          {tip text},",
 				"          {tip date},",
