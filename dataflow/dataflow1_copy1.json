@@ -312,11 +312,9 @@
 				"     skipDuplicateMapOutputs: true) ~> select6",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     partitionFileNames:['silver_tablecopy'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     saveOrder: 0,",
-				"     partitionBy('hash', 1)) ~> sink1"
+				"     saveOrder: 0) ~> sink1"
 			]
 		}
 	}
