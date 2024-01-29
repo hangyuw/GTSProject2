@@ -43,7 +43,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "Json2",
+						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference"
 					},
 					"name": "sink1",
@@ -312,11 +312,16 @@
 				"     broadcast: 'auto')~> join7",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     filePattern:'silver_table_patterned',",
-				"     truncate: true,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     truncate:true,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     saveOrder: 0) ~> sink1"
+				"     saveOrder: 0,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
 			]
 		}
 	}
