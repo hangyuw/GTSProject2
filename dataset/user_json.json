@@ -5,12 +5,6 @@
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"input_user": {
-				"type": "string",
-				"defaultValue": "yelp_academic_dataset_user.json"
-			}
-		},
 		"folder": {
 			"name": "Source_Data"
 		},

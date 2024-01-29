@@ -5,12 +5,6 @@
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"input_checkin": {
-				"type": "string",
-				"defaultValue": "yelp_academic_dataset_checkin.json"
-			}
-		},
 		"folder": {
 			"name": "Source_Data"
 		},
