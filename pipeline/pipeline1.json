@@ -31,7 +31,8 @@
 						"referenceName": "integrationRuntime1",
 						"type": "IntegrationRuntimeReference"
 					},
-					"traceLevel": "Fine"
+					"traceLevel": "Fine",
+					"runConcurrently": true
 				}
 			},
 			{
