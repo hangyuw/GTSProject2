@@ -156,7 +156,7 @@
 				"          user_id as string,",
 				"          name as string,",
 				"          review_count as integer,",
-				"          yelping_since as date,",
+				"          yelping_since as string,",
 				"          useful as integer,",
 				"          funny as integer,",
 				"          cool as integer,",
