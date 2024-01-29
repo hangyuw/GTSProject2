@@ -312,7 +312,7 @@
 				"     broadcast: 'auto')~> join7",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     filePattern:'',",
+				"     filePattern:'silver_table_patterned',",
 				"     truncate: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
