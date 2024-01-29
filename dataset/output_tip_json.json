@@ -19,10 +19,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().output_tip",
-					"type": "Expression"
-				},
 				"container": "sink-data"
 			}
 		},
