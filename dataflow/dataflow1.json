@@ -315,7 +315,7 @@
 				"     skipDuplicateMapOutputs: true) ~> select6",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     partitionFileNames:['output_business_json'],",
+				"     partitionFileNames:['silver_table'],",
 				"     truncate: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
