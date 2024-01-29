@@ -240,7 +240,7 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join3",
-				"select3, source3 join(source5@user_id == source3@user_id,",
+				"select3, source3 join(select3@user_id == source3@user_id,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
