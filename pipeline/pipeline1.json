@@ -294,7 +294,7 @@
 						]
 					},
 					{
-						"activity": "Copy data3",
+						"activity": "Copy data4",
 						"dependencyConditions": [
 							"Completed"
 						]
@@ -309,6 +309,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Non-fla",
+						"type": "DataFlowReference"
+					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
