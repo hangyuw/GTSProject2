@@ -38,18 +38,6 @@
 							},
 							"source5": {
 								"input_user": "yelp_academic_dataset_user.json"
-							},
-							"sink2": {
-								"output_checkin": "output_checkin_json"
-							},
-							"sink3": {
-								"output_review": "output_review_json"
-							},
-							"sink4": {
-								"output_tip": "output_tip_json"
-							},
-							"sink5": {
-								"output_user": "output_user_json"
 							}
 						}
 					},
