@@ -5,12 +5,6 @@
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"output_checkin": {
-				"type": "string",
-				"defaultValue": "output_checkin_json"
-			}
-		},
 		"folder": {
 			"name": "Sink_Data"
 		},
