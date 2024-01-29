@@ -39,12 +39,6 @@
 					"name": "union1"
 				},
 				{
-					"name": "flatten1"
-				},
-				{
-					"name": "aggregate2"
-				},
-				{
 					"name": "select2"
 				}
 			],
@@ -83,21 +77,8 @@
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
 				"select1, flattenAttributes union(byName: true)~> union1",
-				"aggregate2 foldDown(unrollMultiple(BusinessParking,Ambience),",
-				"     mapColumn(",
-				"          Ambience = Ambience,",
-				"          BusinessParking",
-				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten1",
-				"select2 aggregate(BusinessParking = collect(BusinessParking),",
-				"          Ambience = collect(Ambience)) ~> aggregate2",
-				"flattenAttributes select(mapColumn(",
-				"          BusinessParking = attributes.BusinessParking,",
-				"          Ambience = attributes.Ambience",
-				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> select2",
+				"flattenAttributes select(skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
 				"union1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
