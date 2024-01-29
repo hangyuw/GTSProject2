@@ -43,7 +43,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "silver_table",
+						"referenceName": "cantdoitaaaaaaaaa",
 						"type": "DatasetReference"
 					},
 					"name": "sink2"
