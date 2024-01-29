@@ -9,18 +9,25 @@
 						"referenceName": "import2",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "import2"
 				},
 				{
 					"dataset": {
 						"referenceName": "import4",
 						"type": "DatasetReference"
 					},
-					"name": "source2"
+					"name": "import4"
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "aggregate2"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          business_id as string,",
@@ -41,7 +48,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     documentForm: 'documentPerLine') ~> source1",
+				"     documentForm: 'documentPerLine') ~> import2",
 				"source(output(",
 				"          business_id as string,",
 				"          name as string,",
@@ -61,7 +68,9 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     documentForm: 'documentPerLine') ~> source2"
+				"     documentForm: 'documentPerLine') ~> import4",
+				"import2 aggregate() ~> aggregate1",
+				"import4 aggregate() ~> aggregate2"
 			]
 		}
 	}
