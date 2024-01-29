@@ -130,11 +130,8 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "output_business_json",
-						"type": "DatasetReference",
-						"parameters": {
-							"output_business": "output_business_json"
-						}
+						"referenceName": "Summarized",
+						"type": "DatasetReference"
 					}
 				]
 			}
