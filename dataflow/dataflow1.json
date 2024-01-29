@@ -101,6 +101,9 @@
 				{
 					"name": "join7",
 					"description": "full outer join on 'select5' and 'select4'"
+				},
+				{
+					"name": "select7"
 				}
 			],
 			"scriptLines": [
@@ -214,7 +217,7 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join1",
-				"join1, source2 join(select2@business_id == source2@business_id,",
+				"select7, source2 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
 				"     joinType:'left',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
@@ -298,6 +301,20 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join7",
+				"join1 select(mapColumn(",
+				"          business_id = select1@business_id,",
+				"          DriveThru,",
+				"          name,",
+				"          address,",
+				"          city,",
+				"          state,",
+				"          postal_code,",
+				"          stars,",
+				"          review_count,",
+				"          categories",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select7",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
