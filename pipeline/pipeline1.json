@@ -131,7 +131,10 @@
 				"outputs": [
 					{
 						"referenceName": "output_business_json",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"output_business": "output_business_json"
+						}
 					}
 				]
 			}
