@@ -207,8 +207,6 @@
 				"     skipDuplicateMapOutputs: false) ~> select1",
 				"aggregate1 foldDown(unrollMultiple(attributes,hours),",
 				"     mapColumn(",
-				"          attributes,",
-				"          hours,",
 				"          business_id",
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
