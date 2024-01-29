@@ -10,6 +10,10 @@
 		"AzureBlobStorage1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"AzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
 		}
 	},
 	"variables": {
@@ -26,7 +30,14 @@
 						"name": "Flattern Raw data",
 						"description": "Flattern Raw data",
 						"type": "ExecuteDataFlow",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Copy data1",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -42,7 +53,33 @@
 								"parameters": {},
 								"datasetParameters": {
 									"source1": {},
-									"sink1": {}
+									"source2": {
+										"input_checkin": "yelp_academic_dataset_checkin.json"
+									},
+									"source3": {
+										"input_review": "yelp_academic_dataset_review.json"
+									},
+									"source4": {
+										"input_tip": "yelp_academic_dataset_tip.json"
+									},
+									"source5": {
+										"input_user": "yelp_academic_dataset_user.json"
+									},
+									"sink1": {
+										"output_business": "output_business_json"
+									},
+									"sink2": {
+										"output_checkin": "output_checkin_json"
+									},
+									"sink3": {
+										"output_review": "output_review_json"
+									},
+									"sink4": {
+										"output_tip": "output_tip_json"
+									},
+									"sink5": {
+										"output_user": "output_user_json"
+									}
 								}
 							},
 							"staging": {},
@@ -52,6 +89,83 @@
 							},
 							"traceLevel": "Fine"
 						}
+					},
+					{
+						"name": "Notebook1",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Flattern Raw data",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Repos/GTS/GTSProject1/Project_Source_code/Project"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "business_json",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "output_business_json",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -60,7 +174,10 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
+				"[concat(variables('factoryId'), '/dataflows/dataflow1')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks1')]",
+				"[concat(variables('factoryId'), '/datasets/business_json')]",
+				"[concat(variables('factoryId'), '/datasets/output_business_json')]"
 			]
 		},
 		{
@@ -242,6 +359,12 @@
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"input_checkin": {
+						"type": "string",
+						"defaultValue": "yelp_academic_dataset_checkin.json"
+					}
+				},
 				"folder": {
 					"name": "Source_Data"
 				},
@@ -250,7 +373,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "yelp_academic_dataset_checkin.json",
+						"fileName": {
+							"value": "yelp_academic_dataset_checkin.json",
+							"type": "Expression"
+						},
 						"container": "source-data"
 					}
 				},
@@ -271,13 +397,19 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/flatterned_business_json')]",
+			"name": "[concat(parameters('factoryName'), '/output_business_json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"output_business": {
+						"type": "string",
+						"defaultValue": "output_business_json"
+					}
 				},
 				"folder": {
 					"name": "Sink_Data"
@@ -287,6 +419,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().output_business",
+							"type": "Expression"
+						},
 						"container": "sink-data"
 					}
 				},
@@ -297,13 +433,18 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/flatterned_checkin_json')]",
+			"name": "[concat(parameters('factoryName'), '/output_checkin_json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"output_checkin": {
+						"type": "string"
+					}
 				},
 				"folder": {
 					"name": "Sink_Data"
@@ -313,6 +454,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().output_checkin",
+							"type": "Expression"
+						},
 						"container": "sink-data"
 					}
 				},
@@ -323,13 +468,18 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/flatterned_review_json')]",
+			"name": "[concat(parameters('factoryName'), '/output_review_json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"output_review": {
+						"type": "string"
+					}
 				},
 				"folder": {
 					"name": "Sink_Data"
@@ -339,6 +489,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().output_review",
+							"type": "Expression"
+						},
 						"container": "sink-data"
 					}
 				},
@@ -349,13 +503,18 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/flatterned_tip_json')]",
+			"name": "[concat(parameters('factoryName'), '/output_tip_json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"output_tip": {
+						"type": "string"
+					}
 				},
 				"folder": {
 					"name": "Sink_Data"
@@ -365,6 +524,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().output_tip",
+							"type": "Expression"
+						},
 						"container": "sink-data"
 					}
 				},
@@ -375,13 +538,18 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/flatterned_user_json')]",
+			"name": "[concat(parameters('factoryName'), '/output_user_json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"output_user": {
+						"type": "string"
+					}
 				},
 				"folder": {
 					"name": "Sink_Data"
@@ -391,6 +559,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().output_user",
+							"type": "Expression"
+						},
 						"container": "sink-data"
 					}
 				},
@@ -409,6 +581,12 @@
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"input_review": {
+						"type": "string",
+						"defaultValue": "yelp_academic_dataset_review.json"
+					}
+				},
 				"folder": {
 					"name": "Source_Data"
 				},
@@ -417,7 +595,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "yelp_academic_dataset_review.json",
+						"fileName": {
+							"value": "yelp_academic_dataset_review.json",
+							"type": "Expression"
+						},
 						"container": "source-data"
 					}
 				},
@@ -467,6 +648,12 @@
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"input_tip": {
+						"type": "string",
+						"defaultValue": "yelp_academic_dataset_tip.json"
+					}
+				},
 				"folder": {
 					"name": "Source_Data"
 				},
@@ -475,7 +662,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "yelp_academic_dataset_tip.json",
+						"fileName": {
+							"value": "yelp_academic_dataset_tip.json",
+							"type": "Expression"
+						},
 						"container": "source-data"
 					}
 				},
@@ -513,6 +703,12 @@
 					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"input_user": {
+						"type": "string",
+						"defaultValue": "yelp_academic_dataset_user.json"
+					}
+				},
 				"folder": {
 					"name": "Source_Data"
 				},
@@ -521,7 +717,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "yelp_academic_dataset_user.json",
+						"fileName": {
+							"value": "yelp_academic_dataset_user.json",
+							"type": "Expression"
+						},
 						"container": "source-data"
 					}
 				},
@@ -615,6 +814,28 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-873121123358116.16.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDatabricks1_accessToken')]"
+					},
+					"newClusterNodeType": "Standard_DS3_v2",
+					"newClusterNumOfWorker": "1:100",
+					"newClusterVersion": "10.4.x-scala2.12",
+					"clusterOption": "Autoscaling",
+					"newClusterInitScripts": []
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -628,20 +849,88 @@
 								"type": "DatasetReference"
 							},
 							"name": "source1"
+						},
+						{
+							"dataset": {
+								"referenceName": "checkin_jason",
+								"type": "DatasetReference"
+							},
+							"name": "source2"
+						},
+						{
+							"dataset": {
+								"referenceName": "review_jason",
+								"type": "DatasetReference"
+							},
+							"name": "source3"
+						},
+						{
+							"dataset": {
+								"referenceName": "tip_jason",
+								"type": "DatasetReference"
+							},
+							"name": "source4"
+						},
+						{
+							"dataset": {
+								"referenceName": "user_json",
+								"type": "DatasetReference"
+							},
+							"name": "source5"
 						}
 					],
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "flatterned_business_json",
+								"referenceName": "output_business_json",
 								"type": "DatasetReference"
 							},
 							"name": "sink1"
+						},
+						{
+							"dataset": {
+								"referenceName": "output_checkin_json",
+								"type": "DatasetReference"
+							},
+							"name": "sink2"
+						},
+						{
+							"dataset": {
+								"referenceName": "output_review_json",
+								"type": "DatasetReference"
+							},
+							"name": "sink3"
+						},
+						{
+							"dataset": {
+								"referenceName": "output_tip_json",
+								"type": "DatasetReference"
+							},
+							"name": "sink4"
+						},
+						{
+							"dataset": {
+								"referenceName": "output_user_json",
+								"type": "DatasetReference"
+							},
+							"name": "sink5"
 						}
 					],
 					"transformations": [
 						{
-							"name": "flatten1"
+							"name": "aggregate1"
+						},
+						{
+							"name": "select1"
+						},
+						{
+							"name": "flattenAttributes"
+						},
+						{
+							"name": "select2"
+						},
+						{
+							"name": "join1"
 						}
 					],
 					"scriptLines": [
@@ -663,10 +952,76 @@
 						"     ),",
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     limit: 20,",
 						"     ignoreNoFilesFound: false,",
 						"     documentForm: 'documentPerLine') ~> source1",
-						"source1 foldDown(unroll(),",
-						"     mapColumn(",
+						"source(output(",
+						"          business_id as string,",
+						"          date as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     documentForm: 'documentPerLine') ~> source2",
+						"source(output(",
+						"          review_id as string,",
+						"          user_id as string,",
+						"          business_id as string,",
+						"          stars as double,",
+						"          useful as integer,",
+						"          funny as integer,",
+						"          cool as integer,",
+						"          text as string,",
+						"          date as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     documentForm: 'documentPerLine') ~> source3",
+						"source(output(",
+						"          user_id as string,",
+						"          business_id as string,",
+						"          text as string,",
+						"          date as string,",
+						"          compliment_count as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     limit: 30,",
+						"     ignoreNoFilesFound: false,",
+						"     documentForm: 'documentPerLine') ~> source4",
+						"source(output(",
+						"          user_id as string,",
+						"          name as string,",
+						"          review_count as integer,",
+						"          yelping_since as string,",
+						"          useful as integer,",
+						"          funny as integer,",
+						"          cool as integer,",
+						"          elite as string,",
+						"          friends as string,",
+						"          fans as integer,",
+						"          average_stars as double,",
+						"          compliment_hot as integer,",
+						"          compliment_more as integer,",
+						"          compliment_profile as integer,",
+						"          compliment_cute as integer,",
+						"          compliment_list as integer,",
+						"          compliment_note as integer,",
+						"          compliment_plain as integer,",
+						"          compliment_cool as integer,",
+						"          compliment_funny as integer,",
+						"          compliment_writer as integer,",
+						"          compliment_photos as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     documentForm: 'documentPerLine') ~> source5",
+						"source1 aggregate(groupBy(business_id),",
+						"     attributes = collect(attributes),",
+						"          hours = collect(hours)) ~> aggregate1",
+						"source1 select(mapColumn(",
 						"          business_id,",
 						"          name,",
 						"          address,",
@@ -678,22 +1033,85 @@
 						"          stars,",
 						"          review_count,",
 						"          is_open,",
+						"          categories",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select1",
+						"aggregate1 foldDown(unrollMultiple(attributes,hours),",
+						"     mapColumn(",
 						"          attributes,",
-						"          categories,",
-						"          hours",
+						"          hours,",
+						"          business_id",
 						"     ),",
 						"     skipDuplicateMapInputs: false,",
-						"     skipDuplicateMapOutputs: false) ~> flatten1",
-						"flatten1 sink(allowSchemaDrift: true,",
+						"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
+						"flattenAttributes select(mapColumn(",
+						"          BikeParking = attributes.BikeParking,",
+						"          RestaurantsPriceRange2 = attributes.RestaurantsPriceRange2,",
+						"          CoatCheck = attributes.CoatCheck,",
+						"          RestaurantsTakeOut = attributes.RestaurantsTakeOut,",
+						"          RestaurantsDelivery = attributes.RestaurantsDelivery,",
+						"          Caters = attributes.Caters,",
+						"          WiFi = attributes.WiFi,",
+						"          WheelchairAccessible = attributes.WheelchairAccessible,",
+						"          HappyHour = attributes.HappyHour,",
+						"          OutdoorSeating = attributes.OutdoorSeating,",
+						"          BusinessAcceptsCreditCards = attributes.BusinessAcceptsCreditCards,",
+						"          ByAppointmentOnly = attributes.ByAppointmentOnly,",
+						"          HasTV = attributes.HasTV,",
+						"          RestaurantsReservations = attributes.RestaurantsReservations,",
+						"          GoodForKids = attributes.GoodForKids,",
+						"          RestaurantsGoodForGroups = attributes.RestaurantsGoodForGroups,",
+						"          hours = hours.Monday,",
+						"          Tuesday = hours.Tuesday,",
+						"          Wednesday = hours.Wednesday,",
+						"          Thursday = hours.Thursday,",
+						"          Friday = hours.Friday,",
+						"          Saturday = hours.Saturday,",
+						"          Sunday = hours.Sunday,",
+						"          business_id",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select2",
+						"select2, select1 join(select2@business_id == select1@business_id,",
+						"     joinType:'outer',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join1",
+						"join1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink1"
+						"     skipDuplicateMapOutputs: true) ~> sink1",
+						"source2 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink2",
+						"source3 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink3",
+						"source4 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink4",
+						"source5 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink5"
 					]
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/business_json')]",
-				"[concat(variables('factoryId'), '/datasets/flatterned_business_json')]"
+				"[concat(variables('factoryId'), '/datasets/checkin_jason')]",
+				"[concat(variables('factoryId'), '/datasets/review_jason')]",
+				"[concat(variables('factoryId'), '/datasets/tip_jason')]",
+				"[concat(variables('factoryId'), '/datasets/user_json')]",
+				"[concat(variables('factoryId'), '/datasets/output_business_json')]",
+				"[concat(variables('factoryId'), '/datasets/output_checkin_json')]",
+				"[concat(variables('factoryId'), '/datasets/output_review_json')]",
+				"[concat(variables('factoryId'), '/datasets/output_tip_json')]",
+				"[concat(variables('factoryId'), '/datasets/output_user_json')]"
 			]
 		}
 	]
