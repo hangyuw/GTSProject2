@@ -284,7 +284,7 @@
 				]
 			},
 			{
-				"name": "Data flow1",
+				"name": "Non_flatten",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
@@ -310,7 +310,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "Non-fla",
+						"referenceName": "Non_flatten",
 						"type": "DataFlowReference"
 					},
 					"compute": {
