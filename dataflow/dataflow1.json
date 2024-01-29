@@ -71,6 +71,9 @@
 				},
 				{
 					"name": "join2"
+				},
+				{
+					"name": "join3"
 				}
 			],
 			"scriptLines": [
@@ -221,6 +224,11 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join2",
+				"source5, source4 join(source5@user_id == ERROR_FUNCTION(''),",
+				"     joinType:'outer',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join3",
 				"join2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['output_business_json'],",
