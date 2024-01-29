@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"output_business": {
+			"output_business_json": {
 				"type": "string",
 				"defaultValue": "output_business_json"
 			}

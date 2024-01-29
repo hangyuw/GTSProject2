@@ -39,9 +39,6 @@
 							"source5": {
 								"input_user": "yelp_academic_dataset_user.json"
 							},
-							"sink1": {
-								"output_business": "output_business_json"
-							},
 							"sink2": {
 								"output_checkin": "output_checkin_json"
 							},
@@ -134,10 +131,7 @@
 				"outputs": [
 					{
 						"referenceName": "output_business_json",
-						"type": "DatasetReference",
-						"parameters": {
-							"output_business": "output_business_json"
-						}
+						"type": "DatasetReference"
 					}
 				]
 			}
