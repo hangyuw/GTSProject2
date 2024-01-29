@@ -72,7 +72,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "Json1.json",
 						"container": "sink-project2"
 					}
 				},
@@ -996,33 +995,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/silver_table')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Sink Data"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "silver_table",
-						"container": "sink-project2"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/review_json')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1078,6 +1050,33 @@
 						}
 					}
 				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/silver_table')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Sink Data"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "silver_table",
+						"container": "sink-project2"
+					}
+				},
+				"schema": {}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
@@ -1303,10 +1302,347 @@
 							"name": "select2"
 						},
 						{
-							"name": "join1"
+							"name": "join1",
+							"description": "right outer join on 'select2' and 'select1'"
 						},
 						{
-							"name": "join2"
+							"name": "join2",
+							"description": "left outer join on 'join1' and 'source2'"
+						},
+						{
+							"name": "join3"
+						},
+						{
+							"name": "join4"
+						},
+						{
+							"name": "select3"
+						},
+						{
+							"name": "select4"
+						},
+						{
+							"name": "join5"
+						},
+						{
+							"name": "select5"
+						},
+						{
+							"name": "select6"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          business_id as string,",
+						"          name as string,",
+						"          address as string,",
+						"          city as string,",
+						"          state as string,",
+						"          postal_code as string,",
+						"          latitude as double,",
+						"          longitude as double,",
+						"          stars as double,",
+						"          review_count as integer,",
+						"          is_open as integer,",
+						"          attributes as (ByAppointmentOnly as string, BusinessAcceptsCreditCards as string, BikeParking as string, RestaurantsPriceRange2 as string, CoatCheck as string, RestaurantsTakeOut as string, RestaurantsDelivery as string, Caters as string, WiFi as string, BusinessParking as string, WheelchairAccessible as string, HappyHour as string, OutdoorSeating as string, HasTV as string, RestaurantsReservations as string, DogsAllowed as string, Alcohol as string, GoodForKids as string, RestaurantsAttire as string, Ambience as string, RestaurantsTableService as string, RestaurantsGoodForGroups as string, DriveThru as string, NoiseLevel as string),",
+						"          categories as string,",
+						"          hours as (Monday as string, Tuesday as string, Wednesday as string, Thursday as string, Friday as string, Saturday as string, Sunday as string)",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     documentForm: 'documentPerLine') ~> source1",
+						"source(output(",
+						"          business_id as string,",
+						"          date as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     documentForm: 'documentPerLine') ~> source2",
+						"source(output(",
+						"          review_id as string,",
+						"          user_id as string,",
+						"          business_id as string,",
+						"          stars as double,",
+						"          useful as integer,",
+						"          funny as integer,",
+						"          cool as integer,",
+						"          text as string,",
+						"          date as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     documentForm: 'documentPerLine') ~> source3",
+						"source(output(",
+						"          user_id as string,",
+						"          business_id as string,",
+						"          text as string,",
+						"          date as date,",
+						"          compliment_count as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     documentForm: 'documentPerLine') ~> source4",
+						"source(output(",
+						"          user_id as string,",
+						"          name as string,",
+						"          review_count as integer,",
+						"          yelping_since as date,",
+						"          useful as integer,",
+						"          funny as integer,",
+						"          cool as integer,",
+						"          elite as string,",
+						"          friends as string,",
+						"          fans as integer,",
+						"          average_stars as double,",
+						"          compliment_hot as integer,",
+						"          compliment_more as integer,",
+						"          compliment_profile as integer,",
+						"          compliment_cute as integer,",
+						"          compliment_list as integer,",
+						"          compliment_note as integer,",
+						"          compliment_plain as integer,",
+						"          compliment_cool as integer,",
+						"          compliment_funny as integer,",
+						"          compliment_writer as integer,",
+						"          compliment_photos as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     documentForm: 'documentPerLine') ~> source5",
+						"source1 aggregate(groupBy(business_id),",
+						"     attributes = collect(attributes),",
+						"          hours = collect(hours)) ~> aggregate1",
+						"source1 select(mapColumn(",
+						"          business_id,",
+						"          name,",
+						"          address,",
+						"          city,",
+						"          state,",
+						"          postal_code,",
+						"          stars,",
+						"          review_count,",
+						"          categories",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> select1",
+						"aggregate1 foldDown(unrollMultiple(attributes,hours),",
+						"     mapColumn(",
+						"          attributes,",
+						"          hours,",
+						"          business_id",
+						"     ),",
+						"     skipDuplicateMapInputs: false,",
+						"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
+						"flattenAttributes select(mapColumn(",
+						"          business_id,",
+						"          attributes = attributes.ByAppointmentOnly,",
+						"          hours = attributes.BusinessAcceptsCreditCards,",
+						"          BikeParking = attributes.RestaurantsTakeOut,",
+						"          RestaurantsDelivery = attributes.RestaurantsDelivery,",
+						"          DriveThru = attributes.DriveThru,",
+						"          OutdoorSeating = attributes.OutdoorSeating",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select2",
+						"select2, select1 join(select2@business_id == select1@business_id,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join1",
+						"join1, source2 join(select2@business_id == source2@business_id,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join2",
+						"source5, source4 join(source5@user_id == source4@user_id,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join3",
+						"select3, source3 join(select3@user_id == source3@user_id,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join4",
+						"join3 select(mapColumn(",
+						"          user_id = source5@user_id,",
+						"          {user name} = name,",
+						"          review_count,",
+						"          yelping_since,",
+						"          average_stars,",
+						"          business_id,",
+						"          {tip text} = text,",
+						"          {tip date} = date",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select3",
+						"join4 select(mapColumn(",
+						"          {user total reviews} = review_count,",
+						"          {user yelping since} = yelping_since,",
+						"          {user giving average_stars} = average_stars,",
+						"          {tip text},",
+						"          {tip date},",
+						"          review_id,",
+						"          user_id = source3@user_id,",
+						"          {user name},",
+						"          business_id = source3@business_id,",
+						"          {stars user given in review} = stars,",
+						"          {review date} = date",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select4",
+						"select5, select4 join(select5@business_id == select4@business_id,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> join5",
+						"join2 select(mapColumn(",
+						"          business_id = select1@business_id,",
+						"          hours,",
+						"          RestaurantsDelivery,",
+						"          DriveThru,",
+						"          OutdoorSeating,",
+						"          name,",
+						"          address,",
+						"          city,",
+						"          state,",
+						"          postal_code,",
+						"          stars,",
+						"          review_count,",
+						"          categories",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select5",
+						"join5 select(mapColumn(",
+						"          business_id = select5@business_id,",
+						"          {business stars} = stars,",
+						"          {business reviews count} = review_count,",
+						"          {business hours} = hours,",
+						"          {business name} = name,",
+						"          categories,",
+						"          state,",
+						"          address,",
+						"          city,",
+						"          postal_code,",
+						"          RestaurantsDelivery,",
+						"          DriveThru,",
+						"          OutdoorSeating,",
+						"          review_id,",
+						"          {stars given} = {stars user given in review},",
+						"          {review date},",
+						"          user_id,",
+						"          {user name},",
+						"          {user total reviews},",
+						"          {user yelping since},",
+						"          {user giving average_stars},",
+						"          {tip text},",
+						"          {tip date}",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select6",
+						"select6 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     partitionFileNames:['silver_table'],",
+						"     truncate: true,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     saveOrder: 0,",
+						"     partitionBy('hash', 1)) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/business_json')]",
+				"[concat(variables('factoryId'), '/datasets/checkin_json')]",
+				"[concat(variables('factoryId'), '/datasets/review_json')]",
+				"[concat(variables('factoryId'), '/datasets/tip_json')]",
+				"[concat(variables('factoryId'), '/datasets/user_json')]",
+				"[concat(variables('factoryId'), '/datasets/Output_data')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1_copy1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "business_json",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						},
+						{
+							"dataset": {
+								"referenceName": "checkin_json",
+								"type": "DatasetReference"
+							},
+							"name": "source2"
+						},
+						{
+							"dataset": {
+								"referenceName": "review_json",
+								"type": "DatasetReference"
+							},
+							"name": "source3"
+						},
+						{
+							"dataset": {
+								"referenceName": "tip_json",
+								"type": "DatasetReference"
+							},
+							"name": "source4"
+						},
+						{
+							"dataset": {
+								"referenceName": "user_json",
+								"type": "DatasetReference"
+							},
+							"name": "source5"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "Output_data",
+								"type": "DatasetReference"
+							},
+							"name": "sink1",
+							"rejectedDataLinkedService": {
+								"referenceName": "AzureBlobStorage1",
+								"type": "LinkedServiceReference"
+							}
+						}
+					],
+					"transformations": [
+						{
+							"name": "aggregate1"
+						},
+						{
+							"name": "select1"
+						},
+						{
+							"name": "flattenAttributes"
+						},
+						{
+							"name": "select2"
+						},
+						{
+							"name": "join1",
+							"description": "right outer join on 'select2' and 'select1'"
+						},
+						{
+							"name": "join2",
+							"description": "left outer join on 'join1' and 'source2'"
 						},
 						{
 							"name": "join3"
@@ -1546,8 +1882,7 @@
 						"     skipDuplicateMapOutputs: true) ~> select6",
 						"select6 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     partitionFileNames:['silver_table'],",
-						"     truncate: true,",
+						"     partitionFileNames:['silver_tablecopy'],",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     saveOrder: 0,",
@@ -1607,7 +1942,7 @@
 							},
 							"staging": {},
 							"compute": {
-								"coreCount": 8,
+								"coreCount": 272,
 								"computeType": "General"
 							},
 							"traceLevel": "Fine"
@@ -1682,6 +2017,124 @@
 				"[concat(variables('factoryId'), '/dataflows/dataflow1')]",
 				"[concat(variables('factoryId'), '/datasets/business_json')]",
 				"[concat(variables('factoryId'), '/datasets/import1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "source-data//yelp_academic_dataset_business.json"
+							},
+							{
+								"name": "Destination",
+								"value": "sink-data//"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "business_json",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "import1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "dataflow1_copy1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Copy data1",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow1_copy1",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source1": {},
+									"source2": {},
+									"source3": {},
+									"source4": {},
+									"source5": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 144,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/business_json')]",
+				"[concat(variables('factoryId'), '/datasets/import1')]",
+				"[concat(variables('factoryId'), '/dataflows/dataflow1_copy1')]"
 			]
 		}
 	]
