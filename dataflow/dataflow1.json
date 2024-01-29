@@ -40,9 +40,6 @@
 				},
 				{
 					"name": "select2"
-				},
-				{
-					"name": "aggregate3"
 				}
 			],
 			"scriptLines": [
@@ -117,12 +114,10 @@
 				"          Thursday = hours.Thursday,",
 				"          Friday = hours.Friday,",
 				"          Saturday = hours.Saturday,",
-				"          Sunday = hours.Sunday,",
-				"          Business_id",
+				"          Sunday = hours.Sunday",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select2",
-				"select2 aggregate(groupBy(Business_id)) ~> aggregate3",
 				"union1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
