@@ -312,12 +312,11 @@
 				"     broadcast: 'auto')~> join7",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     partitionFileNames:['silver_table'],",
+				"     filePattern:'',",
 				"     truncate: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     saveOrder: 0,",
-				"     partitionBy('hash', 1)) ~> sink1"
+				"     saveOrder: 0) ~> sink1"
 			]
 		}
 	}
