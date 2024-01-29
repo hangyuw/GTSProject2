@@ -36,9 +36,6 @@
 				},
 				{
 					"name": "join2"
-				},
-				{
-					"name": "join3"
 				}
 			],
 			"scriptLines": [
@@ -96,7 +93,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source3",
-				"source3, source2 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"source3, source2 join(source3@user_id == source2@user_id,",
 				"     joinType:'left',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
@@ -111,16 +108,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"source1 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"select1, source1 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join2",
-				"select1 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
-				"     joinType:'left',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join3"
+				"     broadcast: 'auto')~> join2"
 			]
 		}
 	}
