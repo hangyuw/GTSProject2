@@ -108,7 +108,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1, source1 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"select1, source1 join(select1@user_id == source1@user_id,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
