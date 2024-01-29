@@ -20,7 +20,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "@dataset().input_tip",
+					"value": "yelp_academic_dataset_tip.json",
 					"type": "Expression"
 				},
 				"container": "source-data"
