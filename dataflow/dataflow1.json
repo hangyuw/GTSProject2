@@ -67,10 +67,12 @@
 					"name": "select2"
 				},
 				{
-					"name": "join1"
+					"name": "join1",
+					"description": "right outer join on 'select2' and 'select1'"
 				},
 				{
-					"name": "join2"
+					"name": "join2",
+					"description": "left outer join on 'join1' and 'source2'"
 				},
 				{
 					"name": "join3"
