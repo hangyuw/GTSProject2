@@ -13,7 +13,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "silver_table",
+				"fileName": "part-00036-0f37abc0-a0be-40ae-9f96-7e929a61e1a6-c000.json",
+				"folderPath": "7fdb4f2d-8d1e-493b-9db3-0f28c8c31fe2",
 				"container": "sink-project2"
 			}
 		},
