@@ -45,7 +45,16 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "source-data//yelp_academic_dataset_business.json"
+					},
+					{
+						"name": "Destination",
+						"value": "sink-data//"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "JsonSource",
