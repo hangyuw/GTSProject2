@@ -51,6 +51,9 @@
 						"referenceName": "AzureBlobStorage1",
 						"type": "LinkedServiceReference"
 					}
+				},
+				{
+					"name": "sink2"
 				}
 			],
 			"transformations": [
@@ -235,7 +238,11 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     saveOrder: 1,",
-				"     partitionBy('hash', 1)) ~> sink1"
+				"     partitionBy('hash', 1)) ~> sink1",
+				"flatten1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink2"
 			]
 		}
 	}
