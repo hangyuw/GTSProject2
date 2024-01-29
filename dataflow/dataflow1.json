@@ -10,13 +10,6 @@
 						"type": "DatasetReference"
 					},
 					"name": "source1"
-				},
-				{
-					"dataset": {
-						"referenceName": "checkin_json",
-						"type": "DatasetReference"
-					},
-					"name": "source2"
 				}
 			],
 			"sinks": [
@@ -30,13 +23,6 @@
 						"referenceName": "AzureBlobStorage1",
 						"type": "LinkedServiceReference"
 					}
-				},
-				{
-					"dataset": {
-						"referenceName": "output_2",
-						"type": "DatasetReference"
-					},
-					"name": "sink2"
 				}
 			],
 			"transformations": [
@@ -54,12 +40,6 @@
 				},
 				{
 					"name": "join1"
-				},
-				{
-					"name": "aggregate2"
-				},
-				{
-					"name": "flatten1"
 				}
 			],
 			"scriptLines": [
@@ -83,14 +63,6 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source1",
-				"source(output(",
-				"          business_id as string,",
-				"          date as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false,",
-				"     documentForm: 'documentPerLine') ~> source2",
 				"source1 aggregate(groupBy(business_id),",
 				"     attributes = collect(attributes),",
 				"          hours = collect(hours)) ~> aggregate1",
@@ -151,29 +123,14 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join1",
-				"source2 aggregate(business_id = collect(business_id),",
-				"          date = collect(date)) ~> aggregate2",
-				"aggregate2 foldDown(unrollMultiple(business_id,date),",
-				"     mapColumn(",
-				"          business_id,",
-				"          date",
-				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flatten1",
 				"join1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     partitionFileNames:['output_business_json'],",
 				"     truncate: true,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     saveOrder: 1,",
-				"     partitionBy('hash', 1)) ~> sink1",
-				"flatten1 sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     partitionFileNames:['output_secound'],",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     partitionBy('hash', 1)) ~> sink2"
+				"     saveOrder: 0,",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}
