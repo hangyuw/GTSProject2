@@ -106,7 +106,7 @@
 				"     documentForm: 'documentPerLine') ~> source1",
 				"source(output(",
 				"          business_id as string,",
-				"          date as string",
+				"          date as date",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
