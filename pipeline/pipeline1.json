@@ -25,7 +25,36 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "dataflow1",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"source2": {
+								"input_checkin": "yelp_academic_dataset_checkin.json"
+							},
+							"source3": {
+								"input_review": "yelp_academic_dataset_review.json"
+							},
+							"source4": {
+								"input_tip": "yelp_academic_dataset_tip.json"
+							},
+							"source5": {
+								"input_user": "yelp_academic_dataset_user.json"
+							},
+							"sink1": {
+								"output_business": "output_business_json"
+							},
+							"sink2": {
+								"output_checkin": "output_checkin_json"
+							},
+							"sink3": {
+								"output_review": "output_review_json"
+							},
+							"sink4": {
+								"output_tip": "output_tip_json"
+							},
+							"sink5": {
+								"output_user": "output_tip_json"
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
