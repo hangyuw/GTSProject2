@@ -42,6 +42,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "LastEditSilver",
+						"type": "DatasetReference"
+					},
 					"name": "sink2"
 				}
 			],
