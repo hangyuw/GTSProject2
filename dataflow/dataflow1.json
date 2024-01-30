@@ -92,6 +92,9 @@
 				},
 				{
 					"name": "join8"
+				},
+				{
+					"name": "flatten1"
 				}
 			],
 			"scriptLines": [
@@ -261,10 +264,8 @@
 				"source1 aggregate(groupBy(business_id),",
 				"     attributes = collect(attributes),",
 				"          hours = collect(hours)) ~> aggregate1",
-				"aggregate1 select(mapColumn(",
-				"          business_id,",
-				"          attributes,",
-				"          hours",
+				"flatten1 select(mapColumn(",
+				"          business_id",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select7",
@@ -286,6 +287,14 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join8",
+				"aggregate1 foldDown(unrollMultiple(attributes,hours),",
+				"     mapColumn(",
+				"          business_id,",
+				"          attributes,",
+				"          hours",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten1",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
