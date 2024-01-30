@@ -293,7 +293,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select7",
 				"select6 aggregate(groupBy(review_id),",
-				"     review_id = ERROR_FUNCTION('count_id = Count(review_id)')) ~> aggregate2",
+				"     review_id = ERROR_FUNCTION('total_count = Count()')) ~> aggregate2",
 				"aggregate2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
