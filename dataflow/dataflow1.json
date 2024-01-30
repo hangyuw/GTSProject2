@@ -51,17 +51,7 @@
 			],
 			"transformations": [
 				{
-					"name": "aggregate1"
-				},
-				{
 					"name": "select1"
-				},
-				{
-					"name": "flattenAttributes"
-				},
-				{
-					"name": "join1",
-					"description": "inner outer join on 'select2' and 'select1'"
 				},
 				{
 					"name": "join2",
@@ -90,9 +80,6 @@
 				{
 					"name": "join7",
 					"description": "full outer join on 'select5' and 'select4'"
-				},
-				{
-					"name": "select7"
 				},
 				{
 					"name": "aggregate2"
@@ -190,9 +177,6 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source5",
-				"source1 aggregate(groupBy(business_id),",
-				"     attributes = collect(attributes),",
-				"          hours = collect(hours)) ~> aggregate1",
 				"source1 select(mapColumn(",
 				"          business_id,",
 				"          name,",
@@ -206,19 +190,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> select1",
-				"aggregate1 foldDown(unrollMultiple(attributes,hours),",
-				"     mapColumn(",
-				"          business_id,",
-				"          DriveThru = attributes.DriveThru",
-				"     ),",
-				"     skipDuplicateMapInputs: false,",
-				"     skipDuplicateMapOutputs: false) ~> flattenAttributes",
-				"flattenAttributes, select1 join(flattenAttributes@business_id == select1@business_id,",
-				"     joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join1",
-				"select7, source2 join(select7@business_id == source2@business_id,",
+				"select1, source2 join(select7@business_id == source2@business_id,",
 				"     joinType:'left',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
@@ -270,7 +242,7 @@
 				"          stars,",
 				"          review_count = select5@review_count,",
 				"          categories,",
-				"          business_id = select4@business_id,",
+				"          business_id,",
 				"          user_id,",
 				"          review_id,",
 				"          review_stars = {review stars},",
@@ -288,19 +260,6 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join7",
-				"join1 select(mapColumn(",
-				"          business_id = select1@business_id,",
-				"          name,",
-				"          address,",
-				"          city,",
-				"          state,",
-				"          postal_code,",
-				"          stars,",
-				"          review_count,",
-				"          categories",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select7",
 				"select6 aggregate(groupBy(review_id),",
 				"     review_stars = count(review_stars)) ~> aggregate2",
 				"select8, select6 join(select8@review_id == select6@review_id,",
