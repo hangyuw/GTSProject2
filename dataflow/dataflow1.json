@@ -292,7 +292,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select7",
-				"select6, source1 lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"select6, source3 lookup(select6@review_id == source3@review_id,",
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
