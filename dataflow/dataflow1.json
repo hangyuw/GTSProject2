@@ -98,6 +98,9 @@
 					"name": "aggregate2"
 				},
 				{
+					"name": "join8"
+				},
+				{
 					"name": "select8"
 				}
 			],
@@ -297,12 +300,17 @@
 				"     skipDuplicateMapOutputs: true) ~> select7",
 				"select6 aggregate(groupBy(review_id),",
 				"     review_stars = count(review_stars)) ~> aggregate2",
+				"select8, select6 join(select8@review_id == select6@review_id,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join8",
 				"aggregate2 select(mapColumn(",
 				"          review_id",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select8",
-				"select8 sink(allowSchemaDrift: true,",
+				"join8 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
 				"     insertable:true,",
