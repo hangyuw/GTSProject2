@@ -95,9 +95,6 @@
 					"name": "select7"
 				},
 				{
-					"name": "lookup1"
-				},
-				{
 					"name": "aggregate2"
 				}
 			],
@@ -295,12 +292,9 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select7",
-				"aggregate2, source3 lookup(select6@review_id == source3@review_id,",
-				"     multiple: false,",
-				"     pickup: 'any',",
-				"     broadcast: 'auto')~> lookup1",
-				"select6 aggregate(groupBy(review_id)) ~> aggregate2",
-				"lookup1 sink(allowSchemaDrift: true,",
+				"select6 aggregate(groupBy(review_id),",
+				"     review_id = ERROR_FUNCTION('count_id = Count(review_id)')) ~> aggregate2",
+				"aggregate2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
 				"     insertable:true,",
