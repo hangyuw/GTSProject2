@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "part-00000-6e0c21ec-f349-43ef-955d-16cfe077f7af-c000.json",
 				"container": "project2-silver-table"
 			}
 		},
