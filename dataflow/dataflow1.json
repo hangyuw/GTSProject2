@@ -96,6 +96,9 @@
 				},
 				{
 					"name": "lookup1"
+				},
+				{
+					"name": "aggregate2"
 				}
 			],
 			"scriptLines": [
@@ -292,10 +295,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select7",
-				"select6, source3 lookup(select6@review_id == source3@review_id,",
+				"aggregate2, source3 lookup(select6@review_id == source3@review_id,",
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
+				"select6 aggregate(groupBy(review_id)) ~> aggregate2",
 				"lookup1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
