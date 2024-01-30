@@ -96,6 +96,9 @@
 				},
 				{
 					"name": "aggregate2"
+				},
+				{
+					"name": "select8"
 				}
 			],
 			"scriptLines": [
@@ -293,8 +296,13 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select7",
 				"select6 aggregate(groupBy(review_id),",
-				"     review_stars = count(review stars)) ~> aggregate2",
-				"aggregate2 sink(allowSchemaDrift: true,",
+				"     review_stars = count(review_stars)) ~> aggregate2",
+				"aggregate2 select(mapColumn(",
+				"          review_id",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select8",
+				"select8 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
 				"     insertable:true,",
