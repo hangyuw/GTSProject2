@@ -105,9 +105,6 @@
 				},
 				{
 					"name": "select9"
-				},
-				{
-					"name": "lookup1"
 				}
 			],
 			"scriptLines": [
@@ -333,12 +330,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select9",
-				"select9, source3 lookup(select9@review_id == source3@review_id,",
-				"     multiple: false,",
-				"     pickup: 'first',",
-				"     asc(source3@review_id, true),",
-				"     broadcast: 'auto')~> lookup1",
-				"lookup1 sink(allowSchemaDrift: true,",
+				"select9 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
 				"     insertable:true,",
