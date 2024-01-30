@@ -105,6 +105,9 @@
 				},
 				{
 					"name": "select9"
+				},
+				{
+					"name": "exists1"
 				}
 			],
 			"scriptLines": [
@@ -330,7 +333,10 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select9",
-				"select9 sink(allowSchemaDrift: true,",
+				"select9 exists(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     negate:false,",
+				"     broadcast: 'auto')~> exists1",
+				"exists1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
 				"     insertable:true,",
