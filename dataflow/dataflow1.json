@@ -293,7 +293,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select7",
 				"select6 aggregate(groupBy(review_id),",
-				"     {review stars} = count(review stars)) ~> aggregate2",
+				"     review_stars = count(review stars)) ~> aggregate2",
 				"aggregate2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
