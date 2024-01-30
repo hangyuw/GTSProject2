@@ -181,7 +181,7 @@
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source5",
 				"join8 select(mapColumn(",
-				"          business_id = select7@business_id,",
+				"          business_id = select8@business_id,",
 				"          name,",
 				"          address,",
 				"          city,",
