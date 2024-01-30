@@ -5,6 +5,9 @@
 			"referenceName": "AzureBlobStorage2",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Output Data"
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
