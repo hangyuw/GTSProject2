@@ -71,9 +71,6 @@
 					"name": "select5"
 				},
 				{
-					"name": "select6"
-				},
-				{
 					"name": "join6",
 					"description": "full join on 'source5' and 'source4'"
 				},
@@ -82,16 +79,7 @@
 					"description": "full outer join on 'select5' and 'select4'"
 				},
 				{
-					"name": "aggregate2"
-				},
-				{
-					"name": "join8"
-				},
-				{
-					"name": "select8"
-				},
-				{
-					"name": "select9"
+					"name": "select6"
 				}
 			],
 			"scriptLines": [
@@ -230,6 +218,16 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select5",
+				"source5, source4 join(source5@user_id == source4@user_id,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join6",
+				"select5, select4 join(select5@business_id == select4@business_id,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join7",
 				"join7 select(mapColumn(",
 				"          business_id = select5@business_id,",
 				"          name,",
@@ -248,46 +246,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select6",
-				"source5, source4 join(source5@user_id == source4@user_id,",
-				"     joinType:'left',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join6",
-				"select5, select4 join(select5@business_id == select4@business_id,",
-				"     joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join7",
-				"select6 aggregate(groupBy(review_id),",
-				"     review_stars = count(review_stars)) ~> aggregate2",
-				"select8, select6 join(select8@review_id == select6@review_id,",
-				"     joinType:'inner',",
-				"     matchType:'exact',",
-				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join8",
-				"aggregate2 select(mapColumn(",
-				"          review_id",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select8",
-				"join8 select(mapColumn(",
-				"          review_id = select8@review_id,",
-				"          name = business_name,",
-				"          address,",
-				"          city,",
-				"          state,",
-				"          postal_code,",
-				"          stars = business_stars,",
-				"          review_count,",
-				"          categories,",
-				"          business_id,",
-				"          user_id,",
-				"          review_stars,",
-				"          review_time",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select9",
-				"select9 sink(allowSchemaDrift: true,",
+				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
 				"     insertable:true,",
