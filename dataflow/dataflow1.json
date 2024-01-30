@@ -80,6 +80,9 @@
 				},
 				{
 					"name": "select6"
+				},
+				{
+					"name": "aggregate1"
 				}
 			],
 			"scriptLines": [
@@ -165,7 +168,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     documentForm: 'documentPerLine') ~> source5",
-				"source1 select(mapColumn(",
+				"aggregate1 select(mapColumn(",
 				"          business_id,",
 				"          name,",
 				"          address,",
@@ -246,6 +249,9 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select6",
+				"source1 aggregate(groupBy(business_id),",
+				"     attributes = collect(attributes),",
+				"          hours = collect(attributes)) ~> aggregate1",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
