@@ -333,7 +333,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select9",
-				"select9 lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"select9, source3 lookup(select9@review_id == ERROR_FUNCTION(''),",
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
