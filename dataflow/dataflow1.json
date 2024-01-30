@@ -43,7 +43,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "LastEditSilver",
+						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference"
 					},
 					"name": "sink2"
@@ -297,9 +297,14 @@
 				"     skipDuplicateMapOutputs: false) ~> flatten1",
 				"select6 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     format: 'table') ~> sink2"
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink2"
 			]
 		}
 	}
